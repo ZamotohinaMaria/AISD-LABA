@@ -5,8 +5,8 @@
 #include <conio.h>
 
 using namespace std;
-
-ostream& operator<< (ostream& out, const Vectors& v)
+template <class T>
+ostream& operator<< (ostream& out, const Vectors<T>& v)
 {
 	out << "Vector: ";
 	for (int i = 0; i < v.size; i++)
@@ -16,10 +16,10 @@ ostream& operator<< (ostream& out, const Vectors& v)
 	return out;
 }
 
-template <class T>
-Vectors operator * (const T& c, const Vectors& v)
+template <class T, class P>
+Vectors<T> operator * (const P& c, const Vectors<T>& v)
 {
-	Vectors res(v.GetSize());
+	Vectors<T> res(v.GetSize());
 	for (int i = 0; i < v.GetSize(); i++)
 	{
 		res.operator[](i) = v.operator[](i) * c;
@@ -69,7 +69,8 @@ int menu2()
 	}
 }
 
-double Length(Vectors v)
+template <class T>
+double Length(Vectors<T> v)
 {
 	double len = 0;
 	for (int i = 0; i < v.GetSize(); i++)
@@ -89,7 +90,8 @@ int Choosing()
 	}
 }
 
-unsigned SelectCoordinate(Vectors v)
+template <class T>
+unsigned SelectCoordinate(Vectors<T> v)
 {
 	int coordinate;
 	cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << v.GetSize() << endl;
@@ -121,7 +123,7 @@ int IntegerConstant()
 int laba1main()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
-	Vectors a, b, c;
+	Vectors<double> a, b, c;
 	a.SetVector();
 	b.SetVector();
 	unsigned coordinate = 0;
@@ -271,7 +273,7 @@ int laba1main()
 				double a_length = Length(a);
 				double b_length = Length(b);
 				double lambda = a_length / b_length;
-				Vectors bisector(a.GetSize());
+				Vectors<double> bisector(a.GetSize());
 				for (int i = 0; i < a.GetSize(); i++)
 				{
 					bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);

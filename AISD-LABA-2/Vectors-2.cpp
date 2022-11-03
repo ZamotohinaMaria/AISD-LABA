@@ -5,9 +5,11 @@
 
 using namespace std;
 
-double Vectors::MIN_D = 0.00000001;
+template <class T>
+double Vectors<T>::MIN_D = 0.00000001;
 
-Vectors::Vectors(unsigned size) : size(size)
+template <class T>
+Vectors<T>::Vectors(unsigned size) : size(size)
 {
 	//cout << "create vector" << endl;
 	if (size == 0)
@@ -22,7 +24,8 @@ Vectors::Vectors(unsigned size) : size(size)
 	}
 }
 
-Vectors::Vectors(const Vectors& v)
+template <class T>
+Vectors<T>::Vectors(const Vectors& v)
 {
 	size = v.size;
 	vector = new double[size];
@@ -32,17 +35,20 @@ Vectors::Vectors(const Vectors& v)
 	}
 }
 
-Vectors::~Vectors()
+template <class T>
+Vectors<T>::~Vectors()
 {
 	delete[] vector;
 }
 
-unsigned Vectors::GetSize() const
+template <class T>
+unsigned Vectors<T>::GetSize() const
 {
 	return size;
 }
 
-void Vectors::SetVector()
+template <class T>
+void Vectors<T>::SetVector()
 {
 	cout << "Input vector size" << endl;
 	int x;
@@ -59,7 +65,8 @@ void Vectors::SetVector()
 	}
 }
 
-void Vectors::PrintVector() const
+template <class T>
+void Vectors<T>::PrintVector() const
 {
 	cout << "Vector parameters:" << endl;
 	cout << "size = " << size << endl;
@@ -71,7 +78,8 @@ void Vectors::PrintVector() const
 	cout << endl << endl;
 }
 
-Vectors Vectors:: operator = (const Vectors& v)
+template <class T>
+Vectors<T> Vectors<T>:: operator = (const Vectors& v)
 {
 	if (this == (&v))
 	{
@@ -92,7 +100,8 @@ Vectors Vectors:: operator = (const Vectors& v)
 	return *this;
 }
 
-double& Vectors:: operator [] (const unsigned& i) const
+template <class T>
+T& Vectors<T>:: operator [] (const unsigned& i) const
 {
 	if (i >= size || i < 0)
 	{
@@ -107,7 +116,8 @@ double& Vectors:: operator [] (const unsigned& i) const
 	}
 }
 
-Vectors Vectors:: operator + (const Vectors& v)
+template <class T>
+Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 {
 	Vectors res(max(v.size, size));
 	if (size < v.size)
@@ -142,7 +152,8 @@ Vectors Vectors:: operator + (const Vectors& v)
 	return res;
 }
 
-Vectors Vectors:: operator - (const Vectors& v)
+template <class T>
+Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 {
 	Vectors res(max(v.size, size));
 	if (size < v.size)
@@ -183,7 +194,8 @@ Vectors Vectors:: operator - (const Vectors& v)
 	return res;
 }
 //скалярное произведение векторов
-double Vectors:: operator * (const Vectors& v)
+template <class T>
+T Vectors<T>:: operator * (const Vectors& v)
 {
 	double res = 0;
 	if (size < v.size)
@@ -219,7 +231,8 @@ double Vectors:: operator * (const Vectors& v)
 	return res;
 }
 
-Vectors Vectors:: operator * (const int& c)
+template <class T>
+Vectors<T> Vectors<T>:: operator * (const int& c)
 {
 	Vectors res(size);
 	for (int i = 0; i < size; i++)
@@ -229,7 +242,8 @@ Vectors Vectors:: operator * (const int& c)
 	return res;
 }
 
-Vectors Vectors:: operator / (const int& c)
+template <class T>
+Vectors<T> Vectors<T>:: operator / (const int& c)
 {
 	if (c == 0)
 	{
@@ -243,7 +257,8 @@ Vectors Vectors:: operator / (const int& c)
 	return res;
 }
 
-bool Vectors:: operator == (const Vectors& v) const
+template <class T>
+bool Vectors<T>:: operator == (const Vectors& v) const
 {
 	if (size == v.size)
 	{
@@ -258,7 +273,8 @@ bool Vectors:: operator == (const Vectors& v) const
 	return 0;
 }
 
-bool Vectors:: operator != (const Vectors& v) const
+template <class T>
+bool Vectors<T>:: operator != (const Vectors& v) const
 {
 	if (size != v.size)
 	{
