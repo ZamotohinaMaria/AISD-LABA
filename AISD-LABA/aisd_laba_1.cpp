@@ -60,12 +60,12 @@ int menu2()
 	cout << "Press 8 to check operator * (scalar multiplication)" << endl;
 	cout << "Press 9 to check operator /" << endl;
 	cout << "Press Tab to check operator ==" << endl;
-	cout << "Press 0 to check operator !=" << endl;
+	cout << "Press Bacspace to check operator !=" << endl;
 	cout << "Press Esc to return to the main menu" << endl;
 	while (true)
 	{
 		int key = getkey();
-		if ((key == 27) || ((key >= 49) || (key <= 58)) || (key == 9)) return key;
+		if ((key == 27) || ((key >= 49) || (key <= 57)) || (key == 9) || (key == 32)) return key;
 	}
 }
 
@@ -79,21 +79,62 @@ double Length(Vectors v)
 	return sqrt(len);
 }
 
+int Choosing()
+{
+	cout << "Choose vector a(press a) or b(press b)" << endl;
+	while (true)
+	{
+		int choise = getkey();
+		if ((choise == 65) || (choise == 66)) return choise;
+	}
+}
+
+unsigned SelectCoordinate(Vectors v)
+{
+	int coordinate;
+	cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << v.GetSize() << endl;
+	cin >> coordinate;
+	while (coordinate < 0 || coordinate >= v.GetSize())
+	{
+		cout << "input correct coordinate" << endl;
+		cin >> coordinate;
+	}
+	return coordinate;
+}
+
+double InputValue()
+{
+	double value;
+	cout << "Input new value" << endl;
+	cin >> value;
+	return value;
+}
+
+int IntegerConstant()
+{
+	int constant;
+	cout << "Input the integer constant" << endl;
+	cin >> constant;
+	return constant;
+}
+
 int main()
 {
-	while (true) {
+	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
+	Vectors a, b, c;
+	a.SetVector();
+	b.SetVector();
+	unsigned coordinate = 0;
+	int choise = 0;
+	double value = 0;
+	int constant = 0;
+	while (true)
+	{
 		system("cls");
-		cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
-		Vectors a, b, c;
-		a.SetVector();
-		b.SetVector();
-
-		system("cls");
-		int coordinate = 0;
-		int choise = 0;
-		int value = 0;
-		int constant = 0;
-
+		cout << "vector a:";
+		cout << a << endl;
+		cout << "vector b:";
+		cout << b << endl;
 		int m1 = menu1();
 		if (m1 == 27) break;
 		switch (m1)
@@ -113,70 +154,32 @@ int main()
 					break;
 				case 50:
 					cout << "operator [] for reading" << endl;
-					cout << "Choose vector a(press a) or b(press b)" << endl;
-					while (true)
-					{
-						choise = getkey();
-						if ((choise == 65) || (choise == 66)) break;
-					}
+					choise = Choosing();
 					switch (choise)
 					{
 					case 65:
-						cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << a.GetSize() << endl;
-						cin >> coordinate;
-						while (coordinate < 0 || coordinate >= a.GetSize())
-						{
-							cout << "input correct coordinate" << endl;
-							cin >> coordinate;
-						}
+						coordinate = SelectCoordinate(a);
 						cout << "a[%d] = %lf" << coordinate << a[coordinate] << endl;
 						break;
 					case 66:
-						cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << b.GetSize() << endl;
-						cin >> coordinate;
-						while (coordinate < 0 || coordinate >= b.GetSize())
-						{
-							cout << "input correct coordinate" << endl;
-							cin >> coordinate;
-						}
+						coordinate = SelectCoordinate(b);
 						cout << "a[%d] = %lf" << coordinate << b[coordinate] << endl;
 						break;
 					}
 					break;
 				case 51:
 					cout << "operator [] for writing" << endl;
-					cout << "Choose vector a(press a) or b(press b)" << endl;
-					while (true)
-					{
-						choise = getkey();
-						if ((choise == 65) || (choise == 66)) break;
-					}
+					choise = Choosing();
 					switch (choise)
 					{
 					case 65:
-						cout << "Select the vector coordinate (from 0 to %d) to replace it" << a.GetSize() << endl;
-						cin >> coordinate;
-						while (coordinate < 0 || coordinate >= a.GetSize())
-						{
-							cout << "input correct coordinate" << endl;
-							cin >> coordinate;
-						}
-						cout << "Input new value" << endl;
-						cin >> value;
-						a[coordinate] = value;
+						coordinate = SelectCoordinate(a);
+						a[coordinate] = InputValue();
 						cout << "a[%d] = %lf" << coordinate << a[coordinate] << endl;
 						break;
 					case 66:
-						cout << "Select the vector coordinate (from 0 to %d) to replace it" << b.GetSize() << endl;
-						cin >> coordinate;
-						while (coordinate < 0 || coordinate >= b.GetSize())
-						{
-							cout << "input correct coordinate" << endl;
-							cin >> coordinate;
-						}
-						cout << "Input new value" << endl;
-						cin >> value;
-						b[coordinate] = value;
+						coordinate = SelectCoordinate(b);
+						b[coordinate] = InputValue();
 						cout << "a[%d] = %lf" << coordinate << b[coordinate] << endl;
 						break;
 					}
@@ -191,45 +194,27 @@ int main()
 					break;
 				case 54:
 					cout << "operator * (vector * c, where c = const)" << endl;
-					cout << "Choose vector a(press a) or b(press b)" << endl;
-					while (true)
-					{
-						choise = getkey();
-						if ((choise == 65) || (choise == 66)) break;
-					}
+					choise = Choosing();
 					switch (choise)
 					{
 					case 65:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
-						cout << "a * %d = " << a * constant << endl;
+						cout << "a * %d = " << a * IntegerConstant() << endl;
 						break;
 					case 66:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
-						cout << "b * %d = " << b * constant << endl;
+						cout << "b * %d = " << b * IntegerConstant() << endl;
 						break;
 					}
 					break;
 				case 55:
 					cout << "operator * (c * vector, where c = const)" << endl;
-					cout << "Choose vector a(press a) or b(press b)" << endl;
-					while (true)
-					{
-						choise = getkey();
-						if ((choise == 65) || (choise == 66)) break;
-					}
+					choise = Choosing();
 					switch (choise)
 					{
 					case 65:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
-						cout << "%d * a = " << constant * a << endl;
+						cout << "%d * a = " << IntegerConstant() * a << endl;
 						break;
 					case 66:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
-						cout << "%d * b = " << constant * b << endl;
+						cout << "%d * b = " << IntegerConstant() * b << endl;
 						break;
 					}
 					break;
@@ -239,20 +224,13 @@ int main()
 					break;
 				case 57:
 					cout << "operator /" << endl;
-					cout << "Choose vector a(press a) or b(press b)" << endl;
-					while (true)
-					{
-						choise = getkey();
-						if ((choise == 65) || (choise == 66)) break;
-					}
+					choise = Choosing();
 					switch (choise)
 					{
 					case 65:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
 						try
 						{
-							cout << "a / %d = " << a / constant << endl;
+							cout << "a / %d = " << a / IntegerConstant() << endl;
 						}
 						catch (const char* exp)
 						{
@@ -260,11 +238,9 @@ int main()
 						}
 						break;
 					case 66:
-						cout << "Input the integer constant" << endl;
-						cin >> constant;
 						try
 						{
-							cout << "b / %d = " << b / constant << endl;
+							cout << "b / %d = " << b / IntegerConstant() << endl;
 						}
 						catch (const char* exp)
 						{
@@ -273,17 +249,18 @@ int main()
 						break;
 					}
 					break;
+				case 32:
+					cout << "operator != " << endl << "(a != b) = " << (a != b) << endl;
+					cout << endl;
+					break;
 				case 9:
 					cout << "operator == " << endl << "(a == b) = " << (a == b) << endl;
 					cout << endl;
 					break;
-				case 58:
-					cout << "operator != " << endl << "(a != b) = " << (a != b) << endl;
-					cout << endl;
-					break;
 				}
-				break;
+				system("pause");
 			}
+			break;
 		case 50:
 			try
 			{
@@ -304,6 +281,7 @@ int main()
 
 			break;
 		}
+		system("pause");
 	}
 	cout << endl << "program is finished";
 	return 0;

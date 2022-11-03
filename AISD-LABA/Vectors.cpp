@@ -47,6 +47,9 @@ void Vectors::SetVector()
 	int x;
 	cin >> x;
 	size = x;
+	if (vector != NULL)
+		delete[] vector;
+	vector = new double[size];
 	cout << "Input vector values" << endl;
 	for (int i = 0; i < size; i++)
 	{
