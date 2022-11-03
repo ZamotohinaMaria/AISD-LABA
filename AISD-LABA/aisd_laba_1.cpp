@@ -89,7 +89,10 @@ int main()
 		b.SetVector();
 
 		system("cls");
-		
+		int coordinate = 0;
+		int choise = 0;
+		int value = 0;
+		int constant = 0;
 
 		int m1 = menu1();
 		if (m1 == 27) break;
@@ -111,7 +114,6 @@ int main()
 				case 50:
 					cout << "operator [] for reading" << endl;
 					cout << "Choose vector a(press a) or b(press b)" << endl;
-					int choise = 0;
 					while (true)
 					{
 						choise = getkey();
@@ -121,7 +123,6 @@ int main()
 					{
 					case 65:
 						cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << a.GetSize() << endl;
-						int coordinate;
 						cin >> coordinate;
 						while (coordinate < 0 || coordinate >= a.GetSize())
 						{
@@ -132,7 +133,6 @@ int main()
 						break;
 					case 66:
 						cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << b.GetSize() << endl;
-						int coordinate;
 						cin >> coordinate;
 						while (coordinate < 0 || coordinate >= b.GetSize())
 						{
@@ -146,7 +146,6 @@ int main()
 				case 51:
 					cout << "operator [] for writing" << endl;
 					cout << "Choose vector a(press a) or b(press b)" << endl;
-					int choise = 0;
 					while (true)
 					{
 						choise = getkey();
@@ -156,7 +155,6 @@ int main()
 					{
 					case 65:
 						cout << "Select the vector coordinate (from 0 to %d) to replace it" << a.GetSize() << endl;
-						int coordinate;
 						cin >> coordinate;
 						while (coordinate < 0 || coordinate >= a.GetSize())
 						{
@@ -164,14 +162,12 @@ int main()
 							cin >> coordinate;
 						}
 						cout << "Input new value" << endl;
-						int value;
 						cin >> value;
 						a[coordinate] = value;
 						cout << "a[%d] = %lf" << coordinate << a[coordinate] << endl;
 						break;
 					case 66:
 						cout << "Select the vector coordinate (from 0 to %d) to replace it" << b.GetSize() << endl;
-						int coordinate;
 						cin >> coordinate;
 						while (coordinate < 0 || coordinate >= b.GetSize())
 						{
@@ -179,7 +175,6 @@ int main()
 							cin >> coordinate;
 						}
 						cout << "Input new value" << endl;
-						int value;
 						cin >> value;
 						b[coordinate] = value;
 						cout << "a[%d] = %lf" << coordinate << b[coordinate] << endl;
@@ -197,7 +192,6 @@ int main()
 				case 54:
 					cout << "operator * (vector * c, where c = const)" << endl;
 					cout << "Choose vector a(press a) or b(press b)" << endl;
-					int choise = 0;
 					while (true)
 					{
 						choise = getkey();
@@ -207,13 +201,11 @@ int main()
 					{
 					case 65:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						cout << "a * %d = " << a * constant << endl;
 						break;
 					case 66:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						cout << "b * %d = " << b * constant << endl;
 						break;
@@ -222,7 +214,6 @@ int main()
 				case 55:
 					cout << "operator * (c * vector, where c = const)" << endl;
 					cout << "Choose vector a(press a) or b(press b)" << endl;
-					int choise = 0;
 					while (true)
 					{
 						choise = getkey();
@@ -232,13 +223,11 @@ int main()
 					{
 					case 65:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						cout << "%d * a = " << constant * a << endl;
 						break;
 					case 66:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						cout << "%d * b = " << constant * b << endl;
 						break;
@@ -251,7 +240,6 @@ int main()
 				case 57:
 					cout << "operator /" << endl;
 					cout << "Choose vector a(press a) or b(press b)" << endl;
-					int choise = 0;
 					while (true)
 					{
 						choise = getkey();
@@ -261,7 +249,6 @@ int main()
 					{
 					case 65:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						try
 						{
@@ -274,7 +261,6 @@ int main()
 						break;
 					case 66:
 						cout << "Input the integer constant" << endl;
-						int constant;
 						cin >> constant;
 						try
 						{
