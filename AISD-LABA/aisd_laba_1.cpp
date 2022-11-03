@@ -143,6 +143,10 @@ int main()
 			while (true)
 			{
 				system("cls");
+				cout << "vector a:";
+				cout << a << endl;
+				cout << "vector b:";
+				cout << b << endl;
 				int m2 = menu2();
 				if (m2 == 27) break;
 				switch (m2)

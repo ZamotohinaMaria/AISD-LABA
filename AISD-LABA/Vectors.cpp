@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <stdio.h>
 #include "Vectors.h"
 
@@ -108,43 +109,113 @@ double& Vectors:: operator [] (const unsigned& i) const
 
 Vectors Vectors:: operator + (const Vectors& v)
 {
-	if (size != v.size)
+	Vectors res(max(v.size, size));
+	if (size < v.size)
 	{
-		throw "sizes of vectors are different";
+		for (int i = 0; i < size; i++)
+		{
+			res.vector[i] = vector[i] + v.vector[i];
+		}
+		for (int i = 0; i < v.size - size; i++)
+		{
+			res.vector[i + size] = vector[i] + v.vector[i + size];
+		}
 	}
-	Vectors res(size);
-	for (int i = 0; i < size; i++)
+	if (size > v.size)
 	{
-		res.vector[i] = vector[i] + v.vector[i];
+		for (int i = 0; i < v.size; i++)
+		{
+			res.vector[i] = vector[i] + v.vector[i];
+		}
+		for (int i = 0; i < size - v.size; i++)
+		{
+			res.vector[i + v.size] = vector[i + v.size] + v.vector[i];
+		}
+	}
+	if (v.size == size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res.vector[i] = vector[i] + v.vector[i];
+		}
 	}
 	return res;
 }
 
 Vectors Vectors:: operator - (const Vectors& v)
 {
-	if (size != v.size)
+	Vectors res(max(v.size, size));
+	if (size < v.size)
 	{
-		throw "sizes of vectors are different";
+		for (int i = 0; i < size; i++)
+		{
+			res.vector[i] = vector[i] - v.vector[i];
+		}
+		for (int i = 0; i < v.size - size; i++)
+		{
+			cout << vector[i] << endl << v.vector[i + size] << endl;
+			cout << i << endl << i + size << endl;
+			res.vector[i + size] = vector[i] - v.vector[i + size];
+		}
 	}
-	Vectors res(size);
-	for (int i = 0; i < size; i++)
+	if (size > v.size)
 	{
-		res.vector[i] = vector[i] - v.vector[i];
+		for (int i = 0; i < v.size; i++)
+		{
+			res.vector[i] = vector[i] - v.vector[i];
+		}
+		for (int i = 0; i < size - v.size; i++)
+		{
+			cout << vector[i + v.size] << endl << v.vector[i] << endl;
+			cout << i << endl << i + v.size << endl;
+			cout << vector[i + v.size] - v.vector[i] << endl;
+			res.vector[i + v.size] = vector[i + v.size] - v.vector[i];
+		}
 	}
+	if (size == v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res.vector[i] = vector[i] - v.vector[i];
+		}
+	}
+	
 	return res;
 }
 //скалярное произведение векторов
 double Vectors:: operator * (const Vectors& v)
 {
-	if (size != v.size)
-	{
-		throw "sizes of vectors are different";
-	}
 	double res = 0;
-	for (int i = 0; i < size; i++)
+	if (size < v.size)
 	{
-		res += vector[i] * v.vector[i];
+		for (int i = 0; i < size; i++)
+		{
+			res += vector[i] * v.vector[i];
+		}
+		for (int i = 0; i < v.size - size; i++)
+		{
+			res += vector[i] * v.vector[i + size];
+		}
 	}
+	if (size > v.size)
+	{
+		for (int i = 0; i < v.size; i++)
+		{
+			res += vector[i] * v.vector[i];
+		}
+		for (int i = 0; i < size - v.size; i++)
+		{
+			res += vector[i + v.size] * v.vector[i];
+		}
+	}
+	if (size == v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res += vector[i] * v.vector[i];
+		}
+	}
+	
 	return res;
 }
 
