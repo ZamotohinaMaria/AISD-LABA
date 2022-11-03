@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7f1ee055-78f8-4f1a-ba4b-66310932df2b}</ProjectGuid>
-    <RootNamespace>AISDLABA</RootNamespace>
+    <ProjectGuid>{686447a3-4ead-4d26-9269-2476184865da}</ProjectGuid>
+    <RootNamespace>AISDLABA2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -112,8 +112,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <SDLCheck>false</SDLCheck>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -139,11 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="aisd_laba_1.cpp" />
-    <ClCompile Include="Vectors.cpp" />
+    <ClCompile Include="aisd-laba-2.cpp" />
+    <ClCompile Include="Vectors-2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vectors.h" />
+    <ClInclude Include="Vectors-2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

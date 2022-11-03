@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="aisd_laba_1.cpp">
+    <ClCompile Include="aisd-laba-2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Vectors.cpp">
+    <ClCompile Include="Vectors-2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vectors.h">
+    <ClInclude Include="Vectors-2.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

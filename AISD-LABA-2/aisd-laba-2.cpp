@@ -1,7 +1,7 @@
 // variant 1(2)
 #include <iostream>
 #include <cmath>
-#include "Vectors.h"
+#include "Vectors-2.h"
 #include <conio.h>
 
 using namespace std;
