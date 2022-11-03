@@ -48,9 +48,6 @@ void Vectors::SetVector()
 	cin >> x;
 	size = x;
 	cout << "Input vector values" << endl;
-	if (vector != NULL)
-		delete[] vector;
-	vector = new double[size];
 	for (int i = 0; i < size; i++)
 	{
 		cin >> x;
@@ -149,16 +146,6 @@ double Vectors:: operator * (const Vectors& v)
 }
 
 Vectors Vectors:: operator * (const int& c)
-{
-	Vectors res(size);
-	for (int i = 0; i < size; i++)
-	{
-		res.vector[i] = vector[i] * c;
-	}
-	return res;
-}
-
-Vectors Vectors:: operator * (const double& c)
 {
 	Vectors res(size);
 	for (int i = 0; i < size; i++)
