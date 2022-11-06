@@ -23,7 +23,7 @@ Vectors<T> operator * (const P& c, const Vectors<T>& v)
 	Vectors<T> res(v.GetSize());
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		res.operator[](i) = v.operator[](i) * c;
+		res[i] = v[i] * c;
 	}
 	return res;
 }
@@ -40,7 +40,7 @@ int menu1()
 	cout << endl << "This is main menu" << endl;
 	cout << "Press 1, if you want to check that all overloaded statements are executed correctly" << endl;
 	cout << "Press 2 to complete the task: find the angle bisector" << endl;
-	cout << "Press Esc to finish the program" << endl;
+	cout << "Press Esc to to choose new type" << endl;
 	while (true)
 	{
 		int key = getkey();
@@ -83,7 +83,7 @@ double Length(Vectors<T> v)
 
 int Choosing()
 {
-	cout << "Choose vector a(press a) or b(press b)" << endl;
+	cout << "Choose vector a(press A) or b(press B)" << endl;
 	while (true)
 	{
 		int choise = getkey();
@@ -95,7 +95,7 @@ template <class T>
 unsigned SelectCoordinate(Vectors<T> v)
 {
 	int coordinate;
-	cout << "Select the vector coordinate (from 0 to %d) to display on the screen" << v.GetSize() << endl;
+	cout << "Select the vector coordinate (from 0 to " << v.GetSize() - 1 << ") to display on the screen" << endl;
 	cin >> coordinate;
 	while (coordinate < 0 || coordinate >= v.GetSize())
 	{
@@ -121,12 +121,13 @@ int IntegerConstant()
 	return constant;
 }
 
-int main()
+template <class T> 
+void MainProgramm()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
-	Vectors<double> a;
-	Vectors<double> b;
-	Vectors<double> c;
+	Vectors<T> a;
+	Vectors<T> b;
+	Vectors<T> c;
 	a.SetVector();
 	b.SetVector();
 	unsigned coordinate = 0;
@@ -168,11 +169,11 @@ int main()
 					{
 					case 65:
 						coordinate = SelectCoordinate(a);
-						cout << "a[%d] = %lf" << coordinate << a[coordinate] << endl;
+						cout << "a[" << coordinate << "] = "  << a[coordinate] << endl;
 						break;
 					case 66:
 						coordinate = SelectCoordinate(b);
-						cout << "a[%d] = %lf" << coordinate << b[coordinate] << endl;
+						cout << "b[" << coordinate << "] = " << b[coordinate] << endl;
 						break;
 					}
 					break;
@@ -184,12 +185,12 @@ int main()
 					case 65:
 						coordinate = SelectCoordinate(a);
 						a[coordinate] = InputValue();
-						cout << "a[%d] = %lf" << coordinate << a[coordinate] << endl;
+						cout << "a[" << coordinate << "] = " << a[coordinate] << endl;
 						break;
 					case 66:
 						coordinate = SelectCoordinate(b);
 						b[coordinate] = InputValue();
-						cout << "a[%d] = %lf" << coordinate << b[coordinate] << endl;
+						cout << "b[" << coordinate << "] = " << b[coordinate] << endl;
 						break;
 					}
 					break;
@@ -207,10 +208,10 @@ int main()
 					switch (choise)
 					{
 					case 65:
-						cout << "a * %d = " << a * IntegerConstant() << endl;
+						cout << "a * " << IntegerConstant() << " = " << a * IntegerConstant() << endl;
 						break;
 					case 66:
-						cout << "b * %d = " << b * IntegerConstant() << endl;
+						cout << "b * " << IntegerConstant() << " = " << b * IntegerConstant() << endl;
 						break;
 					}
 					break;
@@ -220,10 +221,10 @@ int main()
 					switch (choise)
 					{
 					case 65:
-						cout << "%d * a = " << IntegerConstant() * a << endl;
+						cout << IntegerConstant() << " * a = " << IntegerConstant() * a << endl;
 						break;
 					case 66:
-						cout << "%d * b = " << IntegerConstant() * b << endl;
+						cout << IntegerConstant() << " * b = " << IntegerConstant() * b << endl;
 						break;
 					}
 					break;
@@ -239,7 +240,7 @@ int main()
 					case 65:
 						try
 						{
-							cout << "a / %d = " << a / IntegerConstant() << endl;
+							cout << "a / " << IntegerConstant() << " = " << a / IntegerConstant() << endl;
 						}
 						catch (const char* exp)
 						{
@@ -249,7 +250,7 @@ int main()
 					case 66:
 						try
 						{
-							cout << "b / %d = " << b / IntegerConstant() << endl;
+							cout << "b / " << IntegerConstant() << " = " << b / IntegerConstant() << endl;
 						}
 						catch (const char* exp)
 						{
@@ -276,7 +277,7 @@ int main()
 				double a_length = Length(a);
 				double b_length = Length(b);
 				double lambda = a_length / b_length;
-				Vectors<double> bisector(a.GetSize());
+				Vectors<T> bisector(a.GetSize());
 				for (int i = 0; i < a.GetSize(); i++)
 				{
 					bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
@@ -292,6 +293,54 @@ int main()
 		}
 		system("pause");
 	}
+}
+
+int main()
+{
+	while (true)
+	{
+		cout << "Please, choose type:" << endl;
+		cout << "Press 1 for int" << endl;
+		cout << "Press 2 for float" << endl;
+		cout << "Press 3 for double" << endl;
+		cout << "Press 4 for complex (float)" << endl;
+		cout << "Press 5 for complex (double)" << endl;
+		cout << "Press Esc to finish the program" << endl;
+
+		int choise;
+		while (true)
+		{
+			choise = getkey();
+			if ((choise >= 49 && choise <= 53) || choise == 27) break;
+		}
+		
+		system("cls");
+		if (choise == 27) break;
+		switch (choise)
+		{
+		case 49:
+			cout << "tupe - int" << endl;
+			MainProgramm <int>();
+			break;
+		case 50:
+			cout << "tupe - float" << endl;
+			MainProgramm <float>();
+			break;
+		case 51:
+			cout << "tupe - double" << endl;
+			MainProgramm <double>();
+			break;
+		/*case 52:
+			cout << "tupe - complex (float)" << endl;
+			MainProgramm <complex<float>>();
+			break;
+		case 53:
+			cout << "tupe - complex (double)" << endl;
+			MainProgramm <complex<double>>();
+			break;*/
+		}
+	}
+	
 	cout << endl << "program laba-2 is finished";
 	return 0;
 }

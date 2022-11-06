@@ -51,13 +51,14 @@ template <class T>
 void Vectors<T>::SetVector()
 {
 	cout << "Input vector size" << endl;
-	int x;
-	cin >> x;
-	size = x;
+	unsigned v_size;
+	cin >> v_size;
+	size = v_size;
 	if (vector != NULL)
 		delete[] vector;
 	vector = new T[size];
 	cout << "Input vector values" << endl;
+	T x;
 	for (int i = 0; i < size; i++)
 	{
 		cin >> x;
@@ -297,3 +298,5 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 template class Vectors<int>;
 template class Vectors<float>;
 template class Vectors<double>;
+//template class Vectors<complex<float>>;
+//template class Vectors<complex<double>>;
