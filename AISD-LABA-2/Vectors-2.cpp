@@ -16,7 +16,7 @@ Vectors<T>::Vectors(unsigned size) : size(size)
 		vector = NULL;
 	else
 	{
-		vector = new double[size];
+		vector = new T[size];
 		for (int i = 0; i < size; i++)
 		{
 			vector[i] = 0;
@@ -28,7 +28,7 @@ template <class T>
 Vectors<T>::Vectors(const Vectors& v)
 {
 	size = v.size;
-	vector = new double[size];
+	vector = new T[size];
 	for (int i = 0; i < size; i++)
 	{
 		vector[i] = v.vector[i];
@@ -56,7 +56,7 @@ void Vectors<T>::SetVector()
 	size = x;
 	if (vector != NULL)
 		delete[] vector;
-	vector = new double[size];
+	vector = new T[size];
 	cout << "Input vector values" << endl;
 	for (int i = 0; i < size; i++)
 	{
@@ -90,7 +90,7 @@ Vectors<T> Vectors<T>:: operator = (const Vectors& v)
 		if (vector != NULL)
 			delete[] vector;
 		vector = NULL;
-		vector = new double[v.size];
+		vector = new T[v.size];
 	}
 	for (int i = 0; i < v.size; i++)
 	{
@@ -232,7 +232,7 @@ T Vectors<T>:: operator * (const Vectors& v)
 }
 
 template <class T>
-Vectors<T> Vectors<T>:: operator * (const int& c)
+Vectors<T> Vectors<T>:: operator * (int c)
 {
 	Vectors res(size);
 	for (int i = 0; i < size; i++)
@@ -243,7 +243,7 @@ Vectors<T> Vectors<T>:: operator * (const int& c)
 }
 
 template <class T>
-Vectors<T> Vectors<T>:: operator / (const int& c)
+Vectors<T> Vectors<T>:: operator / (int c)
 {
 	if (c == 0)
 	{
@@ -293,3 +293,7 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 
 	return 1;
 }
+
+template class Vectors<int>;
+template class Vectors<float>;
+template class Vectors<double>;

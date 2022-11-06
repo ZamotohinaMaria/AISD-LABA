@@ -1,4 +1,5 @@
 #pragma once
+#include <complex>
 
 template <class T>
 class Vectors
@@ -19,9 +20,9 @@ public:
 	Vectors operator + (const Vectors& v);
 	Vectors operator - (const Vectors& v);
 	T operator * (const Vectors& v);
-	Vectors operator * (const int& c); //обспечить коммутативность
-	Vectors operator / (const int& c);
+	Vectors operator * (int c); //обспечить коммутативность
+	Vectors operator / (int c);
 	bool operator == (const Vectors& v) const;
 	bool operator != (const Vectors& v) const;
-	friend std::ostream& operator << (std::ostream& out, const Vectors& point);
+	/*friend ostream& operator << (ostream& out, const Vectors<T>& point);*/
 }; 

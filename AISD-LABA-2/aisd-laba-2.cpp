@@ -5,13 +5,14 @@
 #include <conio.h>
 
 using namespace std;
+
 template <class T>
-ostream& operator<< (ostream& out, const Vectors<T>& v)
+ostream& operator << (ostream& out, const Vectors<T> &v)
 {
 	out << "Vector: ";
-	for (int i = 0; i < v.size; i++)
+	for (unsigned i = 0; i < v.GetSize(); i++)
 	{
-		out << v.vector[i] << " ";
+		out << v[i] << " ";
 	}
 	return out;
 }
@@ -36,7 +37,7 @@ int getkey()
 
 int menu1()
 {
-	cout << "This is main menu" << endl;
+	cout << endl << "This is main menu" << endl;
 	cout << "Press 1, if you want to check that all overloaded statements are executed correctly" << endl;
 	cout << "Press 2 to complete the task: find the angle bisector" << endl;
 	cout << "Press Esc to finish the program" << endl;
@@ -120,10 +121,12 @@ int IntegerConstant()
 	return constant;
 }
 
-int laba1main()
+int main()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
-	Vectors<double> a, b, c;
+	Vectors<double> a;
+	Vectors<double> b;
+	Vectors<double> c;
 	a.SetVector();
 	b.SetVector();
 	unsigned coordinate = 0;
@@ -289,6 +292,6 @@ int laba1main()
 		}
 		system("pause");
 	}
-	cout << endl << "program is finished";
+	cout << endl << "program laba-2 is finished";
 	return 0;
 }
