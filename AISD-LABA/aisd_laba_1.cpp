@@ -1,5 +1,6 @@
 // variant 1(2)
 #include <iostream>
+#include <stdlib.h>
 #include <cmath>
 #include "Vectors.h"
 #include <conio.h>
@@ -118,7 +119,37 @@ int IntegerConstant()
 	return constant;
 }
 
-int laba1main()
+void MainTask(Vectors a, Vectors b)
+{
+	double a_length = Length(a);
+	double b_length = Length(b);
+	double lambda = a_length / b_length;
+	unsigned max_len = max(a.GetSize(), b.GetSize());
+	unsigned min_len = min(a.GetSize(), b.GetSize());
+	Vectors bisector(max_len);
+	for (int i = 0; i < min_len; i++)
+	{
+		bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
+	}
+	if (a.GetSize() < b.GetSize())
+	{
+		for (int i = 0; i < max_len - min_len; i++)
+		{
+			bisector[i + min_len] = (a[i] + lambda * b[i + min_len]) / (lambda + 1);
+		}
+	}
+
+	if (a.GetSize() > b.GetSize())
+	{
+		for (int i = 0; i < max_len - min_len; i++)
+		{
+			bisector[i + min_len] = (a[i + min_len] + lambda * b[i]) / (lambda + 1);
+		}
+	}
+	cout << "Bisector vector: " << bisector << endl;
+}
+
+int main()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
 	Vectors a, b, c;
@@ -268,15 +299,7 @@ int laba1main()
 		case 50:
 			try
 			{
-				double a_length = Length(a);
-				double b_length = Length(b);
-				double lambda = a_length / b_length;
-				Vectors bisector(a.GetSize());
-				for (int i = 0; i < a.GetSize(); i++)
-				{
-					bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
-				}
-				cout << "Bisector vector: " << bisector << endl;
+				MainTask(a, b);
 			}
 			catch (const char* exp)
 			{

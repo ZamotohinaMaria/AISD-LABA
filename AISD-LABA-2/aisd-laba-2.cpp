@@ -244,6 +244,7 @@ void MainProgramm()
 						}
 						catch (const char* exp)
 						{
+
 							cout << endl << exp << endl;
 						}
 						break;

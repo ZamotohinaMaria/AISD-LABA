@@ -7,6 +7,65 @@ using namespace std;
 
 double Vectors:: MIN_D = 0.00000001;
 
+unsigned CorrectSizeInput()
+{
+	char symbol[10] = { '.', '+', '-', 0 };
+	char str[10] = {};
+
+	while (true)
+	{
+		cin >> str;
+		if (strchr(symbol, str[0]) != NULL or isalpha(str[0]))
+		{
+			cout << "Input coorect value" << endl;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return atoi(str);
+}
+
+double CorrectValueInput()
+{
+	char symbol[10] = { '.', '+', '-', 'i', 0};
+	char str[10] = {};
+	int j = 0;
+	bool flag = false;
+
+	while (flag == false)
+	{
+		cin >> str;
+		while (j < 10)
+		{
+			if (strchr(symbol, str[j]) != NULL)
+			{
+				j += 1;
+			}
+			else if (isalpha(str[j]))
+			{
+				cout << "Input coorect value" << endl;
+			}
+			else
+			{
+				flag = true;
+				break;
+			}
+				
+		}
+	}
+	char res[10] = {};
+	for (int i = 0; i <strlen(str); i++)
+	{
+		if (isdigit(str[i]) or strchr(symbol, str[i]) != NULL)
+			res[i] = str[i];
+		else
+			break;
+	}
+	return atof(res);
+}
+
 Vectors::Vectors(unsigned size ) : size(size)
 {
 	//cout << "create vector" << endl;
@@ -44,18 +103,16 @@ unsigned Vectors:: GetSize() const
 
 void Vectors::SetVector()
 {
-	cout << "Input vector size" << endl;
-	int x;
-	cin >> x;
-	size = x;
+	cout << "Input vector size > 0" << endl;
+	size = unsigned(CorrectSizeInput());
+	
 	if (vector != NULL)
 		delete[] vector;
 	vector = new double[size];
 	cout << "Input vector values" << endl;
 	for (int i = 0; i < size; i++)
 	{
-		cin >> x;
-		vector[i] = x;
+		vector[i] = CorrectInput();
 	}
 }
 
