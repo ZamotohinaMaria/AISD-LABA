@@ -6,65 +6,64 @@
 using namespace std;
 
 double Vectors:: MIN_D = 0.00000001;
-
-unsigned CorrectSizeInput()
-{
-	char symbol[10] = { '.', '+', '-', 0 };
-	char str[10] = {};
-
-	while (true)
-	{
-		cin >> str;
-		if (strchr(symbol, str[0]) != NULL or isalpha(str[0]))
-		{
-			cout << "Input coorect value" << endl;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return atoi(str);
-}
-
-double CorrectValueInput()
-{
-	char symbol[10] = { '.', '+', '-', 'i', 0};
-	char str[10] = {};
-	int j = 0;
-	bool flag = false;
-
-	while (flag == false)
-	{
-		cin >> str;
-		while (j < 10)
-		{
-			if (strchr(symbol, str[j]) != NULL)
-			{
-				j += 1;
-			}
-			else if (isalpha(str[j]))
-			{
-				cout << "Input coorect value" << endl;
-			}
-			else
-			{
-				flag = true;
-				break;
-			}
-				
-		}
-	}
-	char res[10] = {};
-	for (int i = 0; i <strlen(str); i++)
-	{
-		if (isdigit(str[i]) or strchr(symbol, str[i]) != NULL)
-			res[i] = str[i];
-		else
-			break;
-	}
-	return atof(res);
-}
+//
+//unsigned CorrectSizeInput()
+//{
+//	char symbol[10] = { '.', '+', '-','0', 0 };
+//	char str[10] = {};
+//
+//	while (true)
+//	{
+//		cin >> str;
+//		if (strchr(symbol, str[0]) != NULL or isalpha(str[0]))
+//		{
+//			cout << "Input coorect value" << endl;
+//		}
+//		else
+//		{
+//			break;
+//		}
+//	}
+//	cout << "VARNING: the vector is of type unsigned, so the size will have a dimension equal to the number up to the first non-number characters" << endl;
+//	return atoi(str);
+//}
+//
+//double CorrectValueInput()
+//{
+//	char symbol[10] = { '.', '+', '-', 0};
+//	char str[10] = {};
+//	int j = 0;
+//
+//	while (true)
+//	{
+//		cin >> str;
+//		while (j < strlen(str))
+//		{
+//			if (strchr(symbol, str[j]) != NULL)
+//			{
+//				j += 1;
+//			}
+//			else break;
+//		}
+//		if (strlen(str) or isalpha(str[j]))
+//		{
+//			cout << "Input coorect value" << endl;
+//		}
+//		else
+//		{
+//			break;
+//		}
+//	}
+//	char res[10] = {};
+//	for (int i = 0; i <strlen(str); i++)
+//	{
+//		if (isdigit(str[i]) or strchr(symbol, str[i]) != NULL)
+//			res[i] = str[i];
+//		else
+//			break;
+//	}
+//	return atof(res);
+//}
 
 Vectors::Vectors(unsigned size ) : size(size)
 {
@@ -79,6 +78,36 @@ Vectors::Vectors(unsigned size ) : size(size)
 			vector[i] = 0;
 		}
 	}
+}
+
+int CorrectSizeInput()
+{
+	int number = 0;
+	while (number <= 0)
+	{
+		while (!(cin >> number) || (cin.peek() != '\n'))
+		{
+			cin.clear();
+			while (cin.get() != '\n');
+			cout << "Input correct value" << endl;
+		}
+		if (number <= 0) cout << "Input correct value" << endl;
+
+	}
+	return number;
+}
+
+double CorrectValueInput()
+{
+	double number = 0;
+	while (!(cin >> number) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "\nIncorrect value...\n";
+	}
+
+	return number;
 }
 
 Vectors::Vectors(const Vectors& v)
@@ -105,14 +134,15 @@ void Vectors::SetVector()
 {
 	cout << "Input vector size > 0" << endl;
 	size = unsigned(CorrectSizeInput());
-	
+
+	cout << "Vector size = " << size << endl;
 	if (vector != NULL)
 		delete[] vector;
 	vector = new double[size];
 	cout << "Input vector values" << endl;
 	for (int i = 0; i < size; i++)
 	{
-		vector[i] = CorrectInput();
+		vector[i] = CorrectValueInput();
 	}
 }
 
