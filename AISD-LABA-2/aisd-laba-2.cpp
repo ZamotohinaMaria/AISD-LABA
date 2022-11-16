@@ -236,7 +236,7 @@ void MainProgramm()
 				case 54:
 					cout << "operator * (vector * c, where c = const)" << endl;
 					choise = Choosing();
-					int constant = IntegerConstant()
+					constant = IntegerConstant();
 					switch (choise)
 					{
 					case 65:
@@ -250,7 +250,7 @@ void MainProgramm()
 				case 55:
 					cout << "operator * (c * vector, where c = const)" << endl;
 					choise = Choosing();
-					int constant = IntegerConstant()
+					constant = IntegerConstant();
 					switch (choise)
 					{
 					case 65:
@@ -268,7 +268,7 @@ void MainProgramm()
 				case 57:
 					cout << "operator /" << endl;
 					choise = Choosing();
-					int constant = IntegerConstant()
+					constant = IntegerConstant();
 					switch (choise)
 					{
 					case 65:
@@ -327,6 +327,7 @@ int main()
 {
 	while (true)
 	{
+		system("cls");
 		cout << "Please, choose type:" << endl;
 		cout << "Press 1 for int" << endl;
 		cout << "Press 2 for float" << endl;
