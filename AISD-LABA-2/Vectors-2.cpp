@@ -8,6 +8,38 @@ using namespace std;
 template <class T>
 double Vectors<T>::MIN_D = 0.00000001;
 
+int CorrectSizeInput()
+{
+	int number = 0;
+	while (number <= 0)
+	{
+		while (!(cin >> number) || (cin.peek() != '\n'))
+		{
+			cin.clear();
+			while (cin.get() != '\n');
+			cout << "Input correct value" << endl;
+		}
+		if (number <= 0) cout << "Input correct value" << endl;
+
+	}
+	return number;
+}
+
+template <class T>
+T CorrectValueInput()
+{
+	T number = 0;
+	while (!(cin >> number) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "\nIncorrect value...\n";
+	}
+
+	return number;
+}
+
+
 template <class T>
 Vectors<T>::Vectors(unsigned size) : size(size)
 {
@@ -50,19 +82,17 @@ unsigned Vectors<T>::GetSize() const
 template <class T>
 void Vectors<T>::SetVector()
 {
-	cout << "Input vector size" << endl;
-	unsigned v_size;
-	cin >> v_size;
-	size = v_size;
+	cout << "Input vector size > 0" << endl;
+	size = unsigned(CorrectSizeInput());
+
+	cout << "Vector size = " << size << endl;
 	if (vector != NULL)
 		delete[] vector;
 	vector = new T[size];
 	cout << "Input vector values" << endl;
-	T x;
 	for (int i = 0; i < size; i++)
 	{
-		cin >> x;
-		vector[i] = x;
+		vector[i] = CorrectValueInput<T>();
 	}
 }
 
@@ -300,3 +330,4 @@ template class Vectors<float>;
 template class Vectors<double>;
 //template class Vectors<complex<float>>;
 //template class Vectors<complex<double>>;
+

@@ -6,7 +6,7 @@
 using namespace std;
 
 double Vectors:: MIN_D = 0.00000001;
-//
+
 //unsigned CorrectSizeInput()
 //{
 //	char symbol[10] = { '.', '+', '-','0', 0 };
@@ -65,21 +65,6 @@ double Vectors:: MIN_D = 0.00000001;
 //	return atof(res);
 //}
 
-Vectors::Vectors(unsigned size ) : size(size)
-{
-	//cout << "create vector" << endl;
-	if (size == 0)
-		vector = NULL;
-	else
-	{
-		vector = new double[size];
-		for (int i = 0; i < size; i++)
-		{
-			vector[i] = 0;
-		}
-	}
-}
-
 int CorrectSizeInput()
 {
 	int number = 0;
@@ -108,6 +93,22 @@ double CorrectValueInput()
 	}
 
 	return number;
+}
+
+
+Vectors::Vectors(unsigned size ) : size(size)
+{
+	//cout << "create vector" << endl;
+	if (size == 0)
+		vector = NULL;
+	else
+	{
+		vector = new double[size];
+		for (int i = 0; i < size; i++)
+		{
+			vector[i] = 0;
+		}
+	}
 }
 
 Vectors::Vectors(const Vectors& v)

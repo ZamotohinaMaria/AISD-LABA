@@ -1,5 +1,6 @@
 // variant 1(2)
 #include <iostream>
+#include <stdlib.h>
 #include <cmath>
 #include "Vectors-2.h"
 #include <conio.h>
@@ -120,6 +121,36 @@ int IntegerConstant()
 	cin >> constant;
 	return constant;
 }
+template <class T>
+void MainTask(Vectors<T> a, Vectors<T> b)
+{
+	double a_length = Length(a);
+	double b_length = Length(b);
+	double lambda = a_length / b_length;
+	unsigned max_len = max(a.GetSize(), b.GetSize());
+	unsigned min_len = min(a.GetSize(), b.GetSize());
+	Vectors<T> bisector(max_len);
+	for (int i = 0; i < min_len; i++)
+	{
+		bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
+	}
+	if (a.GetSize() < b.GetSize())
+	{
+		for (int i = 0; i < max_len - min_len; i++)
+		{
+			bisector[i + min_len] = (a[i] + lambda * b[i + min_len]) / (lambda + 1);
+		}
+	}
+
+	if (a.GetSize() > b.GetSize())
+	{
+		for (int i = 0; i < max_len - min_len; i++)
+		{
+			bisector[i + min_len] = (a[i + min_len] + lambda * b[i]) / (lambda + 1);
+		}
+	}
+	cout << "Bisector vector: " << bisector << endl;
+}
 
 template <class T> 
 void MainProgramm()
@@ -205,26 +236,28 @@ void MainProgramm()
 				case 54:
 					cout << "operator * (vector * c, where c = const)" << endl;
 					choise = Choosing();
+					int constant = IntegerConstant()
 					switch (choise)
 					{
 					case 65:
-						cout << "a * " << IntegerConstant() << " = " << a * IntegerConstant() << endl;
+						cout << "a * " << constant << " = " << a * constant << endl;
 						break;
 					case 66:
-						cout << "b * " << IntegerConstant() << " = " << b * IntegerConstant() << endl;
+						cout << "b * " << constant << " = " << b * constant << endl;
 						break;
 					}
 					break;
 				case 55:
 					cout << "operator * (c * vector, where c = const)" << endl;
 					choise = Choosing();
+					int constant = IntegerConstant()
 					switch (choise)
 					{
 					case 65:
-						cout << IntegerConstant() << " * a = " << IntegerConstant() * a << endl;
+						cout << constant << " * a = " << constant * a << endl;
 						break;
 					case 66:
-						cout << IntegerConstant() << " * b = " << IntegerConstant() * b << endl;
+						cout << constant << " * b = " << constant * b << endl;
 						break;
 					}
 					break;
@@ -235,12 +268,13 @@ void MainProgramm()
 				case 57:
 					cout << "operator /" << endl;
 					choise = Choosing();
+					int constant = IntegerConstant()
 					switch (choise)
 					{
 					case 65:
 						try
 						{
-							cout << "a / " << IntegerConstant() << " = " << a / IntegerConstant() << endl;
+							cout << "a / " << constant << " = " << a / constant << endl;
 						}
 						catch (const char* exp)
 						{
@@ -251,7 +285,8 @@ void MainProgramm()
 					case 66:
 						try
 						{
-							cout << "b / " << IntegerConstant() << " = " << b / IntegerConstant() << endl;
+							
+							cout << "b / " << constant << " = " << b / constant << endl;
 						}
 						catch (const char* exp)
 						{
@@ -275,15 +310,7 @@ void MainProgramm()
 		case 50:
 			try
 			{
-				double a_length = Length(a);
-				double b_length = Length(b);
-				double lambda = a_length / b_length;
-				Vectors<T> bisector(a.GetSize());
-				for (int i = 0; i < a.GetSize(); i++)
-				{
-					bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
-				}
-				cout << "Bisector vector: " << bisector << endl;
+				MainTask(a, b);
 			}
 			catch (const char* exp)
 			{
