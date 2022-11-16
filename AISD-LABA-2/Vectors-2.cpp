@@ -263,7 +263,7 @@ T Vectors<T>:: operator * (const Vectors& v)
 }
 
 template <class T>
-Vectors<T> Vectors<T>:: operator * (int c)
+Vectors<T> Vectors<T>:: operator * (T c)
 {
 	Vectors res(size);
 	for (int i = 0; i < size; i++)
@@ -274,9 +274,9 @@ Vectors<T> Vectors<T>:: operator * (int c)
 }
 
 template <class T>
-Vectors<T> Vectors<T>:: operator / (int c)
+Vectors<T> Vectors<T>:: operator / (T c)
 {
-	if (c == 0)
+	if (c == T(0))
 	{
 		throw "c can not be a 0";
 	}
@@ -295,7 +295,7 @@ bool Vectors<T>:: operator == (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (abs(v.vector[i] - vector[i]) < MIN_D)
+			if (abs(v.vector[i] - vector[i]) < T(MIN_D))
 			{
 				return 1;
 			}
@@ -315,7 +315,7 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (abs(v.vector[i] - vector[i]) > MIN_D)
+			if (abs(v.vector[i] - vector[i]) > T(MIN_D))
 			{
 				return 0;
 			}
@@ -328,6 +328,6 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 template class Vectors<int>;
 template class Vectors<float>;
 template class Vectors<double>;
-//template class Vectors<complex<float>>;
-//template class Vectors<complex<double>>;
+template class Vectors<complex<float>>;
+template class Vectors<complex<double>>;
 

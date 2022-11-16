@@ -74,10 +74,10 @@ int menu2()
 template <class T>
 double Length(Vectors<T> v)
 {
-	double len = 0;
+	double len = 0;  
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		len += pow(v[i], 2);
+		len += pow(double(v[i]), 2);
 	}
 	return sqrt(len);
 }
@@ -132,13 +132,13 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	Vectors<T> bisector(max_len);
 	for (int i = 0; i < min_len; i++)
 	{
-		bisector[i] = (a[i] + lambda * b[i]) / (lambda + 1);
+		bisector[i] = (a[i] + T(lambda) * b[i]) / (T(lambda + 1));
 	}
 	if (a.GetSize() < b.GetSize())
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i] + lambda * b[i + min_len]) / (lambda + 1);
+			bisector[i + min_len] = (a[i] + T(lambda) * b[i + min_len]) / (T(lambda + 1));
 		}
 	}
 
@@ -146,7 +146,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i + min_len] + lambda * b[i]) / (lambda + 1);
+			bisector[i + min_len] = (a[i + min_len] + T(lambda) * b[i]) / (T(lambda + 1));
 		}
 	}
 	cout << "Bisector vector: " << bisector << endl;
@@ -163,8 +163,7 @@ void MainProgramm()
 	b.SetVector();
 	unsigned coordinate = 0;
 	int choise = 0;
-	double value = 0;
-	int constant = 0;
+	T constant = 0;
 	while (true)
 	{
 		system("cls");
@@ -359,14 +358,14 @@ int main()
 			cout << "tupe - double" << endl;
 			MainProgramm <double>();
 			break;
-		/*case 52:
+		case 52:
 			cout << "tupe - complex (float)" << endl;
 			MainProgramm <complex<float>>();
 			break;
 		case 53:
 			cout << "tupe - complex (double)" << endl;
 			MainProgramm <complex<double>>();
-			break;*/
+			break;
 		}
 	}
 	
