@@ -78,8 +78,22 @@ double Length(Vectors<T> v)
 	double len = 0;  
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		len += double(real(pow(v[i], 2)));
+		len += double(pow(v[i], 2));
 	}
+	return sqrt(len);
+}
+
+template <>
+double Length(Vectors<complex<float>> v)
+{
+	double len = v*v;
+	return sqrt(len);
+}
+
+template <>
+double Length(Vectors<complex<double>> v)
+{
+	double len = v * v;
 	return sqrt(len);
 }
 
@@ -134,13 +148,13 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	Vectors<T> bisector(max_len);
 	for (int i = 0; i < min_len; i++)
 	{
-		bisector[i] = (a[i] + b[i] * lambda) / (lambda + 1);
+		bisector[i] = (a[i] + b[i] * T(lambda)) / T((lambda + 1));
 	}
 	if (a.GetSize() < b.GetSize())
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i] + b[i + min_len] * lambda) / (lambda + 1);
+			bisector[i + min_len] = (a[i] + b[i + min_len] * T(lambda)) / T((lambda + 1));
 		}
 	}
 
@@ -148,7 +162,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i + min_len] + b[i] * lambda) / (lambda + 1);
+			bisector[i + min_len] = (a[i + min_len] + b[i] * T(lambda)) / T((lambda + 1));
 		}
 	}
 	cout << "Bisector vector: " << bisector << endl;
