@@ -75,28 +75,24 @@ int menu2()
 template <class T>
 double Length(Vectors<T> v)
 {
-	double len = 0;  
-	for (int i = 0; i < v.GetSize(); i++)
-	{
-		len += double(pow(v[i], 2));
-	}
-	return sqrt(len);
-}
-
-template <>
-double Length(Vectors<complex<float>> v)
-{
-	double len = v*v;
-	return sqrt(len);
-}
-
-template <>
-double Length(Vectors<complex<double>> v)
-{
-
 	double len = v * v;
 	return sqrt(len);
 }
+
+//template <>
+//double Length(Vectors<complex<float>> v)
+//{
+//	double len = v * v;
+//	return sqrt(len);
+//}
+//
+//template <>
+//double Length(Vectors<complex<double>> v)
+//{
+//
+//	double len = v * v;
+//	return sqrt(len);
+//}
 
 int Choosing()
 {
@@ -143,7 +139,6 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	double a_length = Length(a);
 	double b_length = Length(b);
 	double lambda = a_length / b_length;
-	cout << a_length << endl << b_length << endl << lambda << endl;
 	unsigned max_len = max(a.GetSize(), b.GetSize());
 	unsigned min_len = min(a.GetSize(), b.GetSize());
 	Vectors<T> bisector(max_len);
