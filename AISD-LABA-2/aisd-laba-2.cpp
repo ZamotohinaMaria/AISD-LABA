@@ -73,12 +73,12 @@ int menu2()
 }
 
 template <class T>
-T Length(Vectors<T> v)
+double Length(Vectors<T> v)
 {
-	T len = 0;  
+	double len = 0;  
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		len += pow(v[i], 2);
+		len += double(real(pow(v[i], 2)));
 	}
 	return sqrt(len);
 }
@@ -295,14 +295,14 @@ void MainProgramm()
 						break;
 					}
 					break;
-				case 32:
+				/*case 32:
 					cout << "operator != " << endl << "(a != b) = " << (a != b) << endl;
 					cout << endl;
 					break;
 				case 9:
 					cout << "operator == " << endl << "(a == b) = " << (a == b) << endl;
 					cout << endl;
-					break;
+					break;*/
 				}
 				system("pause");
 			}

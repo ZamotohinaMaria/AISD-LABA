@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <stdio.h>
+#include <complex>
 #include "Vectors-2.h"
 
 using namespace std;
@@ -195,8 +196,6 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 		}
 		for (int i = 0; i < v.size - size; i++)
 		{
-			cout << vector[i] << endl << v.vector[i + size] << endl;
-			cout << i << endl << i + size << endl;
 			res.vector[i + size] = vector[i] - v.vector[i + size];
 		}
 	}
@@ -208,9 +207,6 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 		}
 		for (int i = 0; i < size - v.size; i++)
 		{
-			cout << vector[i + v.size] << endl << v.vector[i] << endl;
-			cout << i << endl << i + v.size << endl;
-			cout << vector[i + v.size] - v.vector[i] << endl;
 			res.vector[i + v.size] = vector[i + v.size] - v.vector[i];
 		}
 	}
@@ -226,39 +222,118 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 }
 //скалярное произведение векторов
 template <class T>
-T Vectors<T>:: operator * (const Vectors& v)
+double Vectors<T>:: operator * (const Vectors& v)
 {
-	T res = 0;
+	double res = 0;
 	if (size < v.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += vector[i] * v.vector[i];
+			res += double(vector[i] * v.vector[i]);
 		}
 		for (int i = 0; i < v.size - size; i++)
 		{
-			res += vector[i] * v.vector[i + size];
+			res += double(vector[i] * v.vector[i + size]);
 		}
 	}
 	if (size > v.size)
 	{
 		for (int i = 0; i < v.size; i++)
 		{
-			res += vector[i] * v.vector[i];
+			res += double(vector[i] * v.vector[i]);
 		}
 		for (int i = 0; i < size - v.size; i++)
 		{
-			res += vector[i + v.size] * v.vector[i];
+			res += double(vector[i + v.size] * v.vector[i]);
 		}
 	}
 	if (size == v.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += vector[i] * v.vector[i];
+			res += double(vector[i] * v.vector[i]);
 		}
 	}
+	return res;
+}
 
+template <>
+double Vectors<complex<float>>:: operator * (const Vectors& v)
+{
+	double res = 0;
+	for (int i = 0; i < v.size; i++)
+	{
+		v.vector[i] = (real(v.vector[i]), -imag(v.vector[i]));
+	}
+	if (size < v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+		for (int i = 0; i < v.size - size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i + size]));
+		}
+	}
+	if (size > v.size)
+	{
+		for (int i = 0; i < v.size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+		for (int i = 0; i < size - v.size; i++)
+		{
+			res += double(real(vector[i + v.size] * v.vector[i]));
+		}
+	}
+	if (size == v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+	}
+	return res;
+}
+
+template <>
+double Vectors<complex<double>>:: operator * (const Vectors& v)
+{
+	double res = 0;
+	for (int i = 0; i < v.size; i++)
+	{
+		v.vector[i] = (real(v.vector[i]), -imag(v.vector[i]));
+	}
+	if (size < v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+		for (int i = 0; i < v.size - size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i + size]));
+		}
+	}
+	if (size > v.size)
+	{
+		for (int i = 0; i < v.size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+		for (int i = 0; i < size - v.size; i++)
+		{
+			res += double(real(vector[i + v.size] * v.vector[i]));
+		}
+	}
+	if (size == v.size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			res += double(real(vector[i] * v.vector[i]));
+		}
+	}
 	return res;
 }
 
@@ -288,42 +363,42 @@ Vectors<T> Vectors<T>:: operator / (T c)
 	return res;
 }
 
-template <class T>
-bool Vectors<T>:: operator == (const Vectors& v) const
-{
-	if (size == v.size)
-	{
-		for (int i = 0; i < size; i++)
-		{
-			if (T(fabs(v.vector[i] - vector[i])) < T(MIN_D))
-			{
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
-
-template <class T>
-bool Vectors<T>:: operator != (const Vectors& v) const
-{
-	if (size != v.size)
-	{
-		return 0;
-	}
-	else
-	{
-		for (int i = 0; i < size; i++)
-		{
-			if (T(fabs(v.vector[i] - vector[i])) > T(MIN_D))
-			{
-				return 0;
-			}
-		}
-	}
-
-	return 1;
-}
+//template <class T>
+//bool Vectors<T>:: operator == (const Vectors& v) const
+//{
+//	if (size == v.size)
+//	{
+//		for (int i = 0; i < size; i++)
+//		{
+//			if (T(fabs(v.vector[i] - vector[i])) < T(MIN_D))
+//			{
+//				return 1;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+//
+//template <class T>
+//bool Vectors<T>:: operator != (const Vectors& v) const
+//{
+//	if (size != v.size)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		for (int i = 0; i < size; i++)
+//		{
+//			if (T(fabs(v.vector[i] - vector[i])) > T(MIN_D))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//
+//	return 1;
+//}
 
 template class Vectors<int>;
 template class Vectors<float>;
