@@ -1,5 +1,6 @@
 // variant 1(2)
 #include <iostream>
+#include <complex>
 #include <stdlib.h>
 #include <cmath>
 #include "Vectors-2.h"
@@ -72,12 +73,12 @@ int menu2()
 }
 
 template <class T>
-double Length(Vectors<T> v)
+T Length(Vectors<T> v)
 {
-	double len = 0;  
+	T len = 0;  
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		len += pow(double(v[i]), 2);
+		len += pow(v[i], 2);
 	}
 	return sqrt(len);
 }
@@ -124,21 +125,21 @@ int IntegerConstant()
 template <class T>
 void MainTask(Vectors<T> a, Vectors<T> b)
 {
-	double a_length = Length(a);
-	double b_length = Length(b);
-	double lambda = a_length / b_length;
+	T a_length = Length(a);
+	T b_length = Length(b);
+	T lambda = a_length / b_length;
 	unsigned max_len = max(a.GetSize(), b.GetSize());
 	unsigned min_len = min(a.GetSize(), b.GetSize());
 	Vectors<T> bisector(max_len);
 	for (int i = 0; i < min_len; i++)
 	{
-		bisector[i] = (a[i] + T(lambda) * b[i]) / (T(lambda + 1));
+		bisector[i] = (a[i] + lambda * b[i]) / (lambda + T(1));
 	}
 	if (a.GetSize() < b.GetSize())
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i] + T(lambda) * b[i + min_len]) / (T(lambda + 1));
+			bisector[i + min_len] = (a[i] + lambda * b[i + min_len]) / (lambda + T(1));
 		}
 	}
 
@@ -146,7 +147,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i + min_len] + T(lambda) * b[i]) / (T(lambda + 1));
+			bisector[i + min_len] = (a[i + min_len] + lambda * b[i]) / (lambda + T(1));
 		}
 	}
 	cout << "Bisector vector: " << bisector << endl;

@@ -228,7 +228,7 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 template <class T>
 T Vectors<T>:: operator * (const Vectors& v)
 {
-	double res = 0;
+	T res = 0;
 	if (size < v.size)
 	{
 		for (int i = 0; i < size; i++)
@@ -295,7 +295,7 @@ bool Vectors<T>:: operator == (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (abs(v.vector[i] - vector[i]) < T(MIN_D))
+			if (T(fabs(v.vector[i] - vector[i])) < T(MIN_D))
 			{
 				return 1;
 			}
@@ -315,7 +315,7 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (abs(v.vector[i] - vector[i]) > T(MIN_D))
+			if (T(fabs(v.vector[i] - vector[i])) > T(MIN_D))
 			{
 				return 0;
 			}
