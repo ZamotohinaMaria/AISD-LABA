@@ -261,37 +261,38 @@ template <>
 double Vectors<complex<float>>:: operator * (const Vectors& v)
 {
 	double res = 0;
-	for (int i = 0; i < v.size; i++)
+	Vectors<complex<float>> vv = v;
+	for (int i = 0; i < vv.size; i++)
 	{
-		v.vector[i] = (real(v.vector[i]), -imag(v.vector[i]));
+		vv.vector[i] = complex<float>(real(vv.vector[i]), -imag(vv.vector[i]));
 	}
 	if (size < v.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
-		for (int i = 0; i < v.size - size; i++)
+		for (int i = 0; i < vv.size - size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i + size]));
+			res += double(real(vector[i] * vv.vector[i + size]));
 		}
 	}
-	if (size > v.size)
+	if (size > vv.size)
 	{
-		for (int i = 0; i < v.size; i++)
+		for (int i = 0; i < vv.size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
-		for (int i = 0; i < size - v.size; i++)
+		for (int i = 0; i < size - vv.size; i++)
 		{
-			res += double(real(vector[i + v.size] * v.vector[i]));
+			res += double(real(vector[i + vv.size] * vv.vector[i]));
 		}
 	}
-	if (size == v.size)
+	if (size == vv.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
 	}
 	return res;
@@ -301,37 +302,38 @@ template <>
 double Vectors<complex<double>>:: operator * (const Vectors& v)
 {
 	double res = 0;
+	Vectors<complex<double>> vv = v;
 	for (int i = 0; i < v.size; i++)
 	{
-		v.vector[i] = (real(v.vector[i]), -imag(v.vector[i]));
+		vv.vector[i] = complex<double>(real(vv.vector[i]), -imag(vv.vector[i]));
 	}
-	if (size < v.size)
+	if (size < vv.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
-		for (int i = 0; i < v.size - size; i++)
+		for (int i = 0; i < vv.size - size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i + size]));
+			res += double(real(vector[i] * vv.vector[i + size]));
 		}
 	}
-	if (size > v.size)
+	if (size > vv.size)
 	{
-		for (int i = 0; i < v.size; i++)
+		for (int i = 0; i < vv.size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
-		for (int i = 0; i < size - v.size; i++)
+		for (int i = 0; i < size - vv.size; i++)
 		{
-			res += double(real(vector[i + v.size] * v.vector[i]));
+			res += double(real(vector[i + vv.size] * vv.vector[i]));
 		}
 	}
-	if (size == v.size)
+	if (size == vv.size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			res += double(real(vector[i] * v.vector[i]));
+			res += double(real(vector[i] * vv.vector[i]));
 		}
 	}
 	return res;

@@ -19,8 +19,8 @@ ostream& operator << (ostream& out, const Vectors<T> &v)
 	return out;
 }
 
-template <class T, class P>
-Vectors<T> operator * (const P& c, const Vectors<T>& v)
+template <class T>
+Vectors<T> operator * (const T& c, const Vectors<T>& v)
 {
 	Vectors<T> res(v.GetSize());
 	for (int i = 0; i < v.GetSize(); i++)
@@ -125,21 +125,22 @@ int IntegerConstant()
 template <class T>
 void MainTask(Vectors<T> a, Vectors<T> b)
 {
-	T a_length = Length(a);
-	T b_length = Length(b);
-	T lambda = a_length / b_length;
+	double a_length = Length(a);
+	double b_length = Length(b);
+	double lambda = a_length / b_length;
+	cout << a_length << endl << b_length << endl << lambda << endl;
 	unsigned max_len = max(a.GetSize(), b.GetSize());
 	unsigned min_len = min(a.GetSize(), b.GetSize());
 	Vectors<T> bisector(max_len);
 	for (int i = 0; i < min_len; i++)
 	{
-		bisector[i] = (a[i] + lambda * b[i]) / (lambda + T(1));
+		bisector[i] = (a[i] + b[i] * lambda) / (lambda + 1);
 	}
 	if (a.GetSize() < b.GetSize())
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i] + lambda * b[i + min_len]) / (lambda + T(1));
+			bisector[i + min_len] = (a[i] + b[i + min_len] * lambda) / (lambda + 1);
 		}
 	}
 
@@ -147,7 +148,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	{
 		for (int i = 0; i < max_len - min_len; i++)
 		{
-			bisector[i + min_len] = (a[i + min_len] + lambda * b[i]) / (lambda + T(1));
+			bisector[i + min_len] = (a[i + min_len] + b[i] * lambda) / (lambda + 1);
 		}
 	}
 	cout << "Bisector vector: " << bisector << endl;
@@ -335,7 +336,6 @@ int main()
 		cout << "Press 4 for complex (float)" << endl;
 		cout << "Press 5 for complex (double)" << endl;
 		cout << "Press Esc to finish the program" << endl;
-
 		int choise;
 		while (true)
 		{
