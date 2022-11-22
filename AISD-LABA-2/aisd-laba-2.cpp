@@ -93,32 +93,36 @@ int Choosing()
 template <class T>
 unsigned SelectCoordinate(Vectors<T> v)
 {
-	int coordinate;
+	unsigned coordinate = -1;
 	cout << "Select the vector coordinate (from 0 to " << v.GetSize() - 1 << ") to display on the screen" << endl;
-	cin >> coordinate;
 	while (coordinate < 0 || coordinate >= v.GetSize())
 	{
-		cout << "input correct coordinate" << endl;
-		cin >> coordinate;
+		while (!(cin >> coordinate) || (cin.peek() != '\n'))
+		{
+			cin.clear();
+			while (cin.get() != '\n');
+			cout << "Input correct value" << endl;
+		}
+		if (coordinate < 0 || coordinate >= v.GetSize()) cout << "Input correct value" << endl;
 	}
 	return coordinate;
 }
 
-double InputValue()
+template <class T>
+T InputValue()
 {
-	double value;
-	cout << "Input new value" << endl;
-	cin >> value;
-	return value;
-}
-
-int IntegerConstant()
-{
-	int constant;
+	T constant = 0;
 	cout << "Input the integer constant" << endl;
-	cin >> constant;
+	while (!(cin >> constant) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "\nIncorrect value...\n";
+	}
+
 	return constant;
 }
+
 template <class T>
 void MainTask(Vectors<T> a, Vectors<T> b)
 {
@@ -212,12 +216,12 @@ void MainProgramm()
 					{
 					case 65:
 						coordinate = SelectCoordinate(a);
-						a[coordinate] = InputValue();
+						a[coordinate] = InputValue<T>();
 						cout << "a[" << coordinate << "] = " << a[coordinate] << endl;
 						break;
 					case 66:
 						coordinate = SelectCoordinate(b);
-						b[coordinate] = InputValue();
+						b[coordinate] = InputValue<T>();
 						cout << "b[" << coordinate << "] = " << b[coordinate] << endl;
 						break;
 					}
@@ -233,7 +237,7 @@ void MainProgramm()
 				case 54:
 					cout << "operator * (vector * c, where c = const)" << endl;
 					choise = Choosing();
-					constant = IntegerConstant();
+					constant = InputValue<int>();
 					switch (choise)
 					{
 					case 65:
@@ -247,7 +251,7 @@ void MainProgramm()
 				case 55:
 					cout << "operator * (c * vector, where c = const)" << endl;
 					choise = Choosing();
-					constant = IntegerConstant();
+					constant = InputValue<int>();
 					switch (choise)
 					{
 					case 65:
@@ -265,7 +269,7 @@ void MainProgramm()
 				case 57:
 					cout << "operator /" << endl;
 					choise = Choosing();
-					constant = IntegerConstant();
+					constant = InputValue<int>();
 					switch (choise)
 					{
 					case 65:
@@ -344,23 +348,23 @@ int main()
 		switch (choise)
 		{
 		case 49:
-			cout << "tupe - int" << endl;
+			cout << "type - int" << endl;
 			MainProgramm <int>();
 			break;
 		case 50:
-			cout << "tupe - float" << endl;
+			cout << "type - float" << endl;
 			MainProgramm <float>();
 			break;
 		case 51:
-			cout << "tupe - double" << endl;
+			cout << "type - double" << endl;
 			MainProgramm <double>();
 			break;
 		case 52:
-			cout << "tupe - complex (float)" << endl;
+			cout << "type - complex (float)" << endl;
 			MainProgramm <complex<float>>();
 			break;
 		case 53:
-			cout << "tupe - complex (double)" << endl;
+			cout << "type - complex (double)" << endl;
 			MainProgramm <complex<double>>();
 			break;
 		}
