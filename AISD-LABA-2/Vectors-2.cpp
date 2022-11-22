@@ -372,7 +372,7 @@ Vectors<T> Vectors<T>:: operator / (T c)
 //	{
 //		for (int i = 0; i < size; i++)
 //		{
-//			if (T(fabs(v.vector[i] - vector[i])) < T(MIN_D))
+//			if (T(abs(v.vector[i] - vector[i])) < T(MIN_D))
 //			{
 //				return 1;
 //			}
@@ -392,7 +392,7 @@ Vectors<T> Vectors<T>:: operator / (T c)
 //	{
 //		for (int i = 0; i < size; i++)
 //		{
-//			if (T(fabs(v.vector[i] - vector[i])) > T(MIN_D))
+//			if (T(abs(v.vector[i] - vector[i])) > T(MIN_D))
 //			{
 //				return 0;
 //			}
@@ -401,6 +401,45 @@ Vectors<T> Vectors<T>:: operator / (T c)
 //
 //	return 1;
 //}
+////for complex
+//template <>
+//bool Vectors<complex<float>>:: operator == (const Vectors& v) const
+//{
+//	if (size == v.size)
+//	{
+//		for (int i = 0; i < size; i++)
+//		{
+//			if (float(fabs(real(v.vector[i] - vector[i]))) < float(MIN_D) and float(fabs(imag(v.vector[i] - vector[i]))) < float(MIN_D))
+//			{
+//				return 1;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+//
+//template <>
+//bool Vectors<complex<double>>:: operator != (const Vectors& v) const
+//{
+//	if (size != v.size)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		for (int i = 0; i < size; i++)
+//		{
+//			if (double(fabs(real(v.vector[i] - vector[i]))) < double(MIN_D) and double(fabs(imag(v.vector[i] - vector[i]))) < double(MIN_D))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//
+//	return 1;
+//}
+
+
 
 template class Vectors<int>;
 template class Vectors<float>;

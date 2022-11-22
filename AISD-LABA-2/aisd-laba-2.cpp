@@ -79,20 +79,6 @@ double Length(Vectors<T> v)
 	return sqrt(len);
 }
 
-//template <>
-//double Length(Vectors<complex<float>> v)
-//{
-//	double len = v * v;
-//	return sqrt(len);
-//}
-//
-//template <>
-//double Length(Vectors<complex<double>> v)
-//{
-//
-//	double len = v * v;
-//	return sqrt(len);
-//}
 
 int Choosing()
 {

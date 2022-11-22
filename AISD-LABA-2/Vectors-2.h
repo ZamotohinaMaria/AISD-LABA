@@ -22,7 +22,7 @@ public:
 	double operator * (const Vectors& v);
 	Vectors operator * (T c); //обспечить коммутативность
 	Vectors operator / (T c);
-	//bool operator == (const Vectors& v) const;
-	//bool operator != (const Vectors& v) const;
+	/*bool operator == (const Vectors& v) const;
+	bool operator != (const Vectors& v) const;*/
 	/*friend ostream& operator << (ostream& out, const Vectors<T>& point);*/
 }; 
