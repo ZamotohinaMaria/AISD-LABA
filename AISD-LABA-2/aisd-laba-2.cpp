@@ -62,9 +62,9 @@ int menu2()
 	cout << "Press 7 to check operator * (c * a, where c = const)" << endl;
 	cout << "Press 8 to check operator * (scalar multiplication)" << endl;
 	cout << "Press 9 to check operator /" << endl;
-	cout << "Press Tab to check operator ==" << endl;
-	cout << "Press Bacspace to check operator !=" << endl;
-	cout << "Press Esc to return to the main menu" << endl;
+	/*cout << "Press Tab to check operator ==" << endl;
+	cout << "Press Bacspace to check operator !=" << endl;*/
+	cout << endl << "Press Esc to return to the main menu" << endl;
 	while (true)
 	{
 		int key = getkey();
@@ -190,9 +190,20 @@ void MainProgramm()
 				switch (m2)
 				{
 				case 49:
-					c = a;
-					cout << "operator =" << endl << "c = " << c << endl;
-					cout << endl;
+					choise = Choosing();
+					switch (choise)
+					{
+					case 65:
+						c = a;
+						cout << "operator =" << endl << "c = " << c << endl;
+						cout << endl;
+						break;
+					case 66:
+						c = b;
+						cout << "operator =" << endl << "c = " << c << endl;
+						cout << endl;
+						break;
+					}
 					break;
 				case 50:
 					cout << "operator [] for reading" << endl;
@@ -241,10 +252,12 @@ void MainProgramm()
 					switch (choise)
 					{
 					case 65:
-						cout << "a * " << constant << " = " << a * constant << endl;
+						a = a * constant;
+						cout << "a * " << constant << " = " << a << endl;
 						break;
 					case 66:
-						cout << "b * " << constant << " = " << b * constant << endl;
+						b = b * constant;
+						cout << "b * " << constant << " = " << b << endl;
 						break;
 					}
 					break;
@@ -255,10 +268,12 @@ void MainProgramm()
 					switch (choise)
 					{
 					case 65:
-						cout << constant << " * a = " << constant * a << endl;
+						a = constant * a;
+						cout << constant << " * a = " << a << endl;
 						break;
 					case 66:
-						cout << constant << " * b = " << constant * b << endl;
+						b = constant * b;
+						cout << constant << " * b = " << b << endl;
 						break;
 					}
 					break;
@@ -275,7 +290,8 @@ void MainProgramm()
 					case 65:
 						try
 						{
-							cout << "a / " << constant << " = " << a / constant << endl;
+							a = a / constant;
+							cout << "a / " << constant << " = " << a << endl;
 						}
 						catch (const char* exp)
 						{
@@ -286,8 +302,8 @@ void MainProgramm()
 					case 66:
 						try
 						{
-							
-							cout << "b / " << constant << " = " << b / constant << endl;
+							b = b / constant;
+							cout << "b / " << constant << " = " << b << endl;
 						}
 						catch (const char* exp)
 						{
