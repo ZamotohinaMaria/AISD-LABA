@@ -62,8 +62,8 @@ int menu2()
 	cout << "Press 7 to check operator * (c * a, where c = const)" << endl;
 	cout << "Press 8 to check operator * (scalar multiplication)" << endl;
 	cout << "Press 9 to check operator /" << endl;
-	/*cout << "Press Tab to check operator ==" << endl;
-	cout << "Press Bacspace to check operator !=" << endl;*/
+	cout << "Press Tab to check operator ==" << endl;
+	cout << "Press Bacspace to check operator !=" << endl;
 	cout << endl << "Press Esc to return to the main menu" << endl;
 	while (true)
 	{
@@ -132,23 +132,40 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	unsigned max_len = max(a.GetSize(), b.GetSize());
 	unsigned min_len = min(a.GetSize(), b.GetSize());
 	Vectors<T> bisector(max_len);
-	for (int i = 0; i < min_len; i++)
-	{
-		bisector[i] = (a[i] + b[i] * T(lambda)) / T((lambda + 1));
-	}
+
+	bool flag = false;
 	if (a.GetSize() < b.GetSize())
 	{
-		for (int i = 0; i < max_len - min_len; i++)
+		for (int i = 0; i < max(a.GetSize(), b.GetSize()); i += min(a.GetSize(), b.GetSize()))
 		{
-			bisector[i + min_len] = (a[i] + b[i + min_len] * T(lambda)) / T((lambda + 1));
+			for (int j = 0; j < min(a.GetSize(), b.GetSize()); j++)
+			{
+				if (i + j >= max(a.GetSize(), b.GetSize()))
+				{
+					flag = true;
+					break;
+				}
+				bisector[i + j] = (a[j] + b[i + j] * T(lambda)) / T((lambda + 1));
+				
+			}
+			if (flag == true) break;
 		}
 	}
-
-	if (a.GetSize() > b.GetSize())
+	else
 	{
-		for (int i = 0; i < max_len - min_len; i++)
+		for (int i = 0; i < max(a.GetSize(), b.GetSize()); i += min(a.GetSize(), b.GetSize()))
 		{
-			bisector[i + min_len] = (a[i + min_len] + b[i] * T(lambda)) / T((lambda + 1));
+			for (int j = 0; j < min(a.GetSize(), b.GetSize()); j++)
+			{
+				if (i + j >= max(a.GetSize(), b.GetSize()))
+				{
+					flag = true;
+					break;
+				}
+				bisector[i + j] = (a[j + i] + b[j] * T(lambda)) / T((lambda + 1));
+				
+			}
+			if (flag == true) break;
 		}
 	}
 	cout << "Bisector vector: " << bisector << endl;
@@ -312,14 +329,14 @@ void MainProgramm()
 						break;
 					}
 					break;
-				/*case 32:
+				case 32:
 					cout << "operator != " << endl << "(a != b) = " << (a != b) << endl;
 					cout << endl;
 					break;
 				case 9:
 					cout << "operator == " << endl << "(a == b) = " << (a == b) << endl;
 					cout << endl;
-					break;*/
+					break;
 				}
 				system("pause");
 			}
@@ -337,6 +354,7 @@ void MainProgramm()
 			break;
 		}
 		system("pause");
+
 	}
 }
 
