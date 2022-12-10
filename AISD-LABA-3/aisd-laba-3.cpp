@@ -3,13 +3,13 @@
 #include <complex>
 #include <stdlib.h>
 #include <cmath>
-#include "Vectors-2.h"
+#include "Vectors-3.h"
 #include <conio.h>
 
 using namespace std;
 
 template <class T>
-ostream& operator << (ostream& out, const Vectors<T> &v)
+ostream& operator << (ostream& out, const Vectors<T>& v)
 {
 	out << "Vector: ";
 	for (unsigned i = 0; i < v.GetSize(); i++)
@@ -146,7 +146,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 					break;
 				}
 				bisector[i + j] = (a[j] + b[i + j] * T(lambda)) / T((lambda + 1));
-				
+
 			}
 			if (flag == true) break;
 		}
@@ -163,7 +163,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 					break;
 				}
 				bisector[i + j] = (a[j + i] + b[j] * T(lambda)) / T((lambda + 1));
-				
+
 			}
 			if (flag == true) break;
 		}
@@ -171,7 +171,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 	cout << "Bisector vector: " << bisector << endl;
 }
 
-template <class T> 
+template <class T>
 void MainProgramm()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
@@ -229,7 +229,7 @@ void MainProgramm()
 					{
 					case 65:
 						coordinate = SelectCoordinate(a);
-						cout << "a[" << coordinate << "] = "  << a[coordinate] << endl;
+						cout << "a[" << coordinate << "] = " << a[coordinate] << endl;
 						break;
 					case 66:
 						coordinate = SelectCoordinate(b);
@@ -358,7 +358,7 @@ void MainProgramm()
 	}
 }
 
-int main-laba-2()
+int main()
 {
 	while (true)
 	{
@@ -376,7 +376,7 @@ int main-laba-2()
 			choise = getkey();
 			if ((choise >= 49 && choise <= 53) || choise == 27) break;
 		}
-		
+
 		system("cls");
 		if (choise == 27) break;
 		switch (choise)
@@ -403,7 +403,7 @@ int main-laba-2()
 			break;
 		}
 	}
-	
+
 	cout << endl << "program laba-2 is finished";
 	return 0;
 }
