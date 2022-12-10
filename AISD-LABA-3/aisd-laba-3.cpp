@@ -25,7 +25,7 @@ Vectors<T> operator * (const T& c, const Vectors<T>& v)
 	Vectors<T> res(v.GetSize());
 	for (int i = 0; i < v.GetSize(); i++)
 	{
-		res[i] = v[i] * c;
+		res.set(i ,v[i] * c);
 	}
 	return res;
 }
@@ -145,7 +145,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 					flag = true;
 					break;
 				}
-				bisector[i + j] = (a[j] + b[i + j] * T(lambda)) / T((lambda + 1));
+				bisector.set(i + j, (a[j] + b[i + j] * T(lambda)) / T((lambda + 1)));
 
 			}
 			if (flag == true) break;
@@ -162,7 +162,7 @@ void MainTask(Vectors<T> a, Vectors<T> b)
 					flag = true;
 					break;
 				}
-				bisector[i + j] = (a[j + i] + b[j] * T(lambda)) / T((lambda + 1));
+				bisector.set(i + j, (a[j + i] + b[j] * T(lambda)) / T((lambda + 1)));
 
 			}
 			if (flag == true) break;
@@ -244,12 +244,12 @@ void MainProgramm()
 					{
 					case 65:
 						coordinate = SelectCoordinate(a);
-						a[coordinate] = InputValue<T>();
+						a.set(coordinate, InputValue<T>());
 						cout << "a[" << coordinate << "] = " << a[coordinate] << endl;
 						break;
 					case 66:
 						coordinate = SelectCoordinate(b);
-						b[coordinate] = InputValue<T>();
+						b.set(coordinate, InputValue<T>());
 						cout << "b[" << coordinate << "] = " << b[coordinate] << endl;
 						break;
 					}
