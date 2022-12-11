@@ -285,7 +285,6 @@ double Vectors<complex<float>>:: operator * (const Vectors& v)
 {
 	double res = 0;
 	Vectors<complex<float>> vv = v;
-	auto vv_iter = vv.cbegin();
 	for (int i = 0; i < vv.size; i++)
 	{
 		vv.values[i] = complex<float>(real(vv.values[i]), -imag(vv.values[i]));
@@ -335,7 +334,6 @@ double Vectors<complex<double>>:: operator * (const Vectors& v)
 {
 	double res = 0;
 	Vectors<complex<double>> vv = v;
-	auto vv_iter = vv.cbegin();
 	for (int i = 0; i < vv.size; i++)
 	{
 		vv.values[i] = complex<double>(real(vv.values[i]), -imag(vv.values[i]));

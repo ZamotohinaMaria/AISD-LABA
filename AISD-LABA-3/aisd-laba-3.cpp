@@ -9,13 +9,16 @@
 using namespace std;
 
 template <class T>
-ostream& operator << (ostream& out, const Vectors<T>& v)
+ostream& operator << (ostream& out, const  Vectors<T>& v)
 {
 	out << "Vector: ";
-	for (unsigned i = 0; i < v.GetSize(); i++)
+	/*for (unsigned i = 0; i < v.GetSize(); i++)
 	{
 		out << v[i] << " ";
-	}
+	}*/
+	auto i = v.cbegin();
+	for (i; i != v.cend(); i++)
+		out << *(i) << " ";
 	return out;
 }
 
