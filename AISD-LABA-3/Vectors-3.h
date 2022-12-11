@@ -11,12 +11,14 @@ private:
 	std::vector<T> values;
 	static double MIN_D;
 
-	auto begin() { return values.begin(); } //iterator on the begin
-	auto end() { return values.end(); } //iterator on the end
 public:
 	Vectors(unsigned size = 0);
 	Vectors(const Vectors& v);
 	~Vectors();
+
+	auto begin() { return values.begin(); } //iterator on the begin
+	auto end() { return values.end(); } //iterator on the end
+
 	auto cbegin() const { return values.cbegin(); }//const iterator on the begin
 	auto cend() const { return values.cend(); }//const iterator on the end
 	

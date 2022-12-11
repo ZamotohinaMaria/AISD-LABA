@@ -123,6 +123,23 @@ T InputValue()
 	return constant;
 }
 
+int CorrectSizeInput()
+{
+	int number = 0;
+	while (number <= 0)
+	{
+		while (!(cin >> number) || (cin.peek() != '\n'))
+		{
+			cin.clear();
+			while (cin.get() != '\n');
+			cout << "Input correct value" << endl;
+		}
+		if (number <= 0) cout << "Input correct value" << endl;
+
+	}
+	return number;
+}
+
 template <class T>
 void MainTask(Vectors<T> a, Vectors<T> b)
 {
@@ -175,11 +192,19 @@ template <class T>
 void MainProgramm()
 {
 	cout << "Hello, my programm works with two vectors, please, enter their size and values" << endl;
-	Vectors<T> a;
-	Vectors<T> b;
-	Vectors<T> c;
+
+	cout << "Input vector size > 0" << endl;
+	unsigned size = unsigned(CorrectSizeInput());
+	Vectors<T> a(size);
 	a.SetVector();
+
+	cout << "Input vector size > 0" << endl;
+	size = unsigned(CorrectSizeInput());
+	Vectors<T> b(size);
 	b.SetVector();
+
+	Vectors<T> c;
+
 	unsigned coordinate = 0;
 	int choise = 0;
 	T constant = 0;
@@ -404,6 +429,6 @@ int main()
 		}
 	}
 
-	cout << endl << "program laba-2 is finished";
+	cout << "program laba-3 is finished" << endl;
 	return 0;
 }

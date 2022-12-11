@@ -9,23 +9,6 @@ using namespace std;
 template <class T>
 double Vectors<T>::MIN_D = 0.00000001;
 
-int CorrectSizeInput()
-{
-	int number = 0;
-	while (number <= 0)
-	{
-		while (!(cin >> number) || (cin.peek() != '\n'))
-		{
-			cin.clear();
-			while (cin.get() != '\n');
-			cout << "Input correct value" << endl;
-		}
-		if (number <= 0) cout << "Input correct value" << endl;
-
-	}
-	return number;
-}
-
 template <class T>
 T CorrectValueInput()
 {
@@ -51,6 +34,8 @@ Vectors<T>::Vectors(unsigned size)
 		delete this;
 		throw "Incorrect size of vector";
 	}
+
+	values = vector<T>(size);
 }
 
 template <class T>
@@ -60,10 +45,16 @@ Vectors<T>::Vectors(const Vectors& v)
 	values.resize(v.size);
 
 	auto it = v.cbegin();
+	unsigned i = 0;
 	for (it; it != v.cend(); it++)
 	{
-		this->values.push_back((*it));
+		this->values[i++] = (*it);
 	}
+
+	//for (auto it: v)
+	//{
+	//	this->values.push_back(it);
+	//}
 }
 
 template <class T>
@@ -81,18 +72,18 @@ unsigned Vectors<T>::GetSize() const
 template <class T>
 void Vectors<T>::SetVector()
 {
-	cout << "Input vector size > 0" << endl;
-	size = unsigned(CorrectSizeInput());
-	cout << "Vector size = " << size << endl;
-
-	values.resize(size);
 	cout << "Input vector values" << endl;
 
-	auto it = cbegin();
+	auto it = this->begin();
 	for (int i =0; i < size; i++)
 	{
-		values.emplace(it + i,CorrectValueInput<T>());
+		values[i]=CorrectValueInput<T>();
 	}
+
+	/*for (int i = 0; i < size; i++)
+	{
+		values.push_back(CorrectValueInput<T>());
+	}*/
 }
 
 template <class T>
@@ -107,11 +98,25 @@ Vectors<T> Vectors<T>:: operator = (const Vectors& v)
 		values.resize(v.size);
 	}
 
-	auto it = v.cbegin();
-	for (it; it != v.cend(); it++)
+	auto v_it = v.cbegin();
+	/*for (v_it; v_it != v.cend(); v_it++)
 	{
-		values.push_back((*it));
+		values.push_back((*v_it));
+		cout << (*v_it) << endl;
+	}*/
+
+	unsigned i = 0;
+	for (v_it; v_it != v.cend(); v_it++)
+	{
+		values[i++] = (*v_it);
 	}
+
+
+	/*for (auto it : v)
+	{
+		values.push_back(*it);
+	}*/
+
 	size = v.size;
 	return *this;
 }
@@ -144,7 +149,7 @@ void Vectors<T>::set(const unsigned& i, T val)
 	{
 		if (i == j)
 		{
-			values.emplace(it + i, val);
+			values[i] = val;
 		}
 	}
 }
@@ -166,7 +171,7 @@ Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values.emplace(res_iter + i + j, values[j] + v.values[i + j]);
+				res.values[i + j] = values[j] + v.values[i + j];
 			}
 			if (flag == true) break;
 		}
@@ -182,7 +187,7 @@ Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values.emplace(res_iter + i + j, values[i + j] + v.values[j]);
+				res.values[i + j] = values[i + j] + v.values[j];
 			}
 			if (flag == true) break;
 		}
@@ -208,7 +213,7 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values.emplace(res_iter + i + j, values[j] - v.values[i + j]);
+				res.values[i + j] = values[j] - v.values[i + j];
 			}
 			if (flag == true) break;
 		}
@@ -224,7 +229,7 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values.emplace(res_iter + i + j, values[i + j] - v.values[j]);
+				res.values[i + j] = values[i + j] - v.values[j];
 			}
 			if (flag == true) break;
 		}
@@ -283,7 +288,7 @@ double Vectors<complex<float>>:: operator * (const Vectors& v)
 	auto vv_iter = vv.cbegin();
 	for (int i = 0; i < vv.size; i++)
 	{
-		vv.values.emplace(vv_iter + i,complex<float>(real(vv.values[i]), -imag(vv.values[i])));
+		vv.values[i] = complex<float>(real(vv.values[i]), -imag(vv.values[i]));
 	}
 
 	bool flag = false;
@@ -333,7 +338,7 @@ double Vectors<complex<double>>:: operator * (const Vectors& v)
 	auto vv_iter = vv.cbegin();
 	for (int i = 0; i < vv.size; i++)
 	{
-		vv.values.emplace(vv_iter + i, complex<double>(real(vv.values[i]), -imag(vv.values[i])));
+		vv.values[i] = complex<double>(real(vv.values[i]), -imag(vv.values[i]));
 	}
 	bool flag = false;
 	if (size < v.size)
@@ -380,7 +385,7 @@ Vectors<T> Vectors<T>:: operator * (T c)
 	auto res_iter = res.cbegin();
 	for (int i = 0; i < size; i++)
 	{
-		res.values.emplace(res_iter + i, values[i] * c);
+		res.values[i] = values[i] * c;
 	}
 	return res;
 }
@@ -396,7 +401,7 @@ Vectors<T> Vectors<T>:: operator / (T c)
 	auto res_iter = res.cbegin();
 	for (int i = 0; i < size; i++)
 	{
-		res.values.emplace(res_iter + i, values[i] / c);
+		res.values[i] = values[i] / c;
 	}
 	return res;
 }
