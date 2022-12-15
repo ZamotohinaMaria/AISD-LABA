@@ -11,10 +11,13 @@ private:
 	std::vector<T> values;
 	static double MIN_D;
 
+	
 public:
-	Vectors(unsigned size = 0);
-	Vectors(const Vectors& v);
-	~Vectors();
+	Vectors(unsigned size);
+	Vectors() = default;
+	Vectors(const Vectors& v) = default;
+	Vectors& operator = (const Vectors& v) = default;
+	~Vectors() = default;
 
 	auto begin() { return values.begin(); } //iterator on the begin
 	auto end() { return values.end(); } //iterator on the end
@@ -24,7 +27,6 @@ public:
 	
 	unsigned GetSize() const;
 	void SetVector();
-	Vectors operator = (const Vectors& v);
 	T operator [] (const unsigned& i) const;
 	void set(const unsigned& i, T val);
 	Vectors operator + (const Vectors& v);

@@ -208,6 +208,11 @@ void MainProgramm()
 
 	Vectors<T> c;
 
+	for (const auto i : a)
+	{
+		cout << &i << endl;
+	}
+	system("pause");
 	unsigned coordinate = 0;
 	int choise = 0;
 	T constant = 0;

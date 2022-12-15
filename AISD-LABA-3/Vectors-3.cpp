@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <complex>
+#include <numeric>
+#include <ranges>
 #include "Vectors-3.h"
 
 using namespace std;
@@ -38,30 +40,30 @@ Vectors<T>::Vectors(unsigned size)
 	values = vector<T>(size);
 }
 
-template <class T>
-Vectors<T>::Vectors(const Vectors& v)
-{
-	size = v.size;
-	values.resize(v.size);
-
-	auto it = v.cbegin();
-	unsigned i = 0;
-	for (it; it != v.cend(); it++)
-	{
-		this->values[i++] = (*it);
-	}
-
-	//for (auto it: v)
-	//{
-	//	this->values.push_back(it);
-	//}
-}
-
-template <class T>
-Vectors<T>::~Vectors()
-{
-	values.clear();
-}
+//template <class T>
+//Vectors<T>::Vectors(const Vectors& v)
+//{
+//	size = v.size;
+//	values.resize(v.size);
+//
+//	auto it = v.cbegin();
+//	unsigned i = 0;
+//	for (it; it != v.cend(); it++)
+//	{
+//		this->values[i++] = (*it);
+//	}
+//
+//	//for (auto it: v)
+//	//{
+//	//	this->values.push_back(it);
+//	//}
+//}
+//
+//template <class T>
+//Vectors<T>::~Vectors()
+//{
+//	values.clear();
+//}
 
 template <class T>
 unsigned Vectors<T>::GetSize() const
@@ -75,51 +77,53 @@ void Vectors<T>::SetVector()
 	cout << "Input vector values" << endl;
 
 	auto it = this->begin();
-	for (int i =0; i < size; i++)
+
+	for (int i = 0; i < size; i++)
 	{
-		values[i]=CorrectValueInput<T>();
+		values.at(i) = CorrectValueInput<T>();
 	}
 
-	/*for (int i = 0; i < size; i++)
+	/*for (auto i: this->values)
 	{
-		values.push_back(CorrectValueInput<T>());
+		values.at(&i) = CorrectValueInput<T>();
+		cout << i << endl;
 	}*/
 }
 
-template <class T>
-Vectors<T> Vectors<T>:: operator = (const Vectors& v)
-{
-	if (this == (&v))
-	{
-		return *this;
-	}
-	if (size < v.size)
-	{
-		values.resize(v.size);
-	}
-
-	auto v_it = v.cbegin();
-	/*for (v_it; v_it != v.cend(); v_it++)
-	{
-		values.push_back((*v_it));
-		cout << (*v_it) << endl;
-	}*/
-
-	unsigned i = 0;
-	for (v_it; v_it != v.cend(); v_it++)
-	{
-		values[i++] = (*v_it);
-	}
-
-
-	/*for (auto it : v)
-	{
-		values.push_back(*it);
-	}*/
-
-	size = v.size;
-	return *this;
-}
+//template <class T>
+//Vectors<T> Vectors<T>:: operator = (const Vectors& v)
+//{
+//	if (this == (&v))
+//	{
+//		return *this;
+//	}
+//	if (size < v.size)
+//	{
+//		values.resize(v.size);
+//	}
+//
+//	auto v_it = v.cbegin();
+//	/*for (v_it; v_it != v.cend(); v_it++)
+//	{
+//		values.push_back((*v_it));
+//		cout << (*v_it) << endl;
+//	}*/
+//
+//	unsigned i = 0;
+//	for (v_it; v_it != v.cend(); v_it++)
+//	{
+//		values[i++] = (*v_it);
+//	}
+//
+//
+//	/*for (auto it : v)
+//	{
+//		values.push_back(*it);
+//	}*/
+//
+//	size = v.size;
+//	return *this;
+//}
 
 template <class T>
 T Vectors<T>:: operator [] (const unsigned& i) const
@@ -128,6 +132,13 @@ T Vectors<T>:: operator [] (const unsigned& i) const
 	{
 		throw "index i is out of range";
 	}
+	//for (auto it: this->values)
+	//{
+	//	if (it - this == i)
+	//	{
+	//		return values.at(i);
+	//	}
+	//}
 	for (int j = 0; j < size; j++)
 	{
 		if (i == j)
@@ -149,7 +160,7 @@ void Vectors<T>::set(const unsigned& i, T val)
 	{
 		if (i == j)
 		{
-			values[i] = val;
+			values.at(i) = val;
 		}
 	}
 }
@@ -160,7 +171,7 @@ Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 	Vectors res(max(v.size, size));
 	auto res_iter = res.cbegin();
 	bool flag = false;
-	if (size < v.size)
+	/*if (size < v.size)
 	{
 		for (int i = 0; i < max(v.size, size); i += min(v.size, size))
 		{
@@ -171,7 +182,7 @@ Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values[i + j] = values[j] + v.values[i + j];
+				res.values.at(i + j) = values.at(j) + v.values.at(i + j);
 			}
 			if (flag == true) break;
 		}
@@ -187,12 +198,18 @@ Vectors<T> Vectors<T>:: operator + (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values[i + j] = values[i + j] + v.values[j];
+				res.values.at(i + j) = values.at(i + j) + v.values.at(j);
 			}
 			if (flag == true) break;
 		}
+	}*/
+	if (size != v.size) 
+		throw "Sizes are different";
+	auto v_it = v.values.cbegin();
+	for (auto i : this->values)
+	{
+		res.values.push_back(*i + v_it ++);
 	}
-
 	return res;
 }
 
@@ -213,7 +230,7 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values[i + j] = values[j] - v.values[i + j];
+				res.values.at(i + j) = values.at(j) - v.values.at(i + j);
 			}
 			if (flag == true) break;
 		}
@@ -229,7 +246,7 @@ Vectors<T> Vectors<T>:: operator - (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res.values[i + j] = values[i + j] - v.values[j];
+				res.values.at(i + j) = values.at(i + j) - v.values.at(j);
 			}
 			if (flag == true) break;
 		}
@@ -254,7 +271,7 @@ double Vectors<T>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(values[j] * v.values[i + j]);
+				res += double(values.at(j) * v.values.at(i + j));
 
 			}
 			if (flag == true) break;
@@ -271,7 +288,7 @@ double Vectors<T>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(values[i + j] * v.values[j]);
+				res += double(values.at(i + j) * v.values.at(j));
 
 			}
 			if (flag == true) break;
@@ -287,9 +304,8 @@ double Vectors<complex<float>>:: operator * (const Vectors& v)
 	Vectors<complex<float>> vv = v;
 	for (int i = 0; i < vv.size; i++)
 	{
-		vv.values[i] = complex<float>(real(vv.values[i]), -imag(vv.values[i]));
+		vv.values.at(i) = complex<float>(real(vv.values.at(i)), -imag(vv.values.at(i)));
 	}
-
 	bool flag = false;
 	if (size < v.size)
 	{
@@ -303,7 +319,7 @@ double Vectors<complex<float>>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(real(values[j] * vv.values[i + j]));
+				res += double(real(values.at(j) * vv.values.at(i + j)));
 
 			}
 			if (flag == true) break;
@@ -320,7 +336,7 @@ double Vectors<complex<float>>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(real(values[i + j] * vv.values[j]));
+				res += double(real(values.at(i + j) * vv.values.at(j)));
 
 			}
 			if (flag == true) break;
@@ -336,13 +352,14 @@ double Vectors<complex<double>>:: operator * (const Vectors& v)
 	Vectors<complex<double>> vv = v;
 	for (int i = 0; i < vv.size; i++)
 	{
-		vv.values[i] = complex<double>(real(vv.values[i]), -imag(vv.values[i]));
+		vv.values.at(i) = complex<double>(real(vv.values.at(i)), -imag(vv.values.at(i)));
 	}
 	bool flag = false;
 	if (size < v.size)
 	{
 		for (int i = 0; i < max(v.size, size); i += min(v.size, size))
 		{
+
 			for (int j = 0; j < min(v.size, size); j++)
 			{
 				if (i + j >= max(v.size, size))
@@ -350,7 +367,7 @@ double Vectors<complex<double>>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(real(values[j] * vv.values[i + j]));
+				res += double(real(values.at(j) * vv.values.at(i + j)));
 
 			}
 			if (flag == true) break;
@@ -367,7 +384,7 @@ double Vectors<complex<double>>:: operator * (const Vectors& v)
 					flag = true;
 					break;
 				}
-				res += double(real(values[i + j] * vv.values[j]));
+				res += double(real(values.at(i + j) * vv.values.at(j)));
 
 			}
 			if (flag == true) break;
@@ -383,7 +400,7 @@ Vectors<T> Vectors<T>:: operator * (T c)
 	auto res_iter = res.cbegin();
 	for (int i = 0; i < size; i++)
 	{
-		res.values[i] = values[i] * c;
+		res.values.at(i) = values.at(i) * c;
 	}
 	return res;
 }
@@ -399,7 +416,7 @@ Vectors<T> Vectors<T>:: operator / (T c)
 	auto res_iter = res.cbegin();
 	for (int i = 0; i < size; i++)
 	{
-		res.values[i] = values[i] / c;
+		res.values.at(i) = values.at(i) / c;
 	}
 	return res;
 }
@@ -411,7 +428,7 @@ bool Vectors<T>:: operator == (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (T(abs(v.values[i] - values[i])) < T(MIN_D))
+			if (T(abs(v.values.at(i) - values.at(i))) < T(MIN_D))
 			{
 				return 1;
 			}
@@ -431,7 +448,7 @@ bool Vectors<T>:: operator != (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (T(abs(v.values[i] - values[i])) > T(MIN_D))
+			if (T(abs(v.values.at(i) - values.at(i))) > T(MIN_D))
 			{
 				return 0;
 			}
@@ -448,7 +465,7 @@ bool Vectors<complex<float>>:: operator == (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (float(fabs(real(v.values[i] - values[i]))) < float(MIN_D) and float(fabs(imag(v.values[i] - values[i]))) < float(MIN_D))
+			if (float(fabs(real(v.values.at(i) - values.at(i)))) < float(MIN_D) and float(fabs(imag(v.values.at(i) - values.at(i)))) < float(MIN_D))
 			{
 				return 1;
 			}
@@ -468,7 +485,7 @@ bool Vectors<complex<float>>:: operator != (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (double(fabs(real(v.values[i] - values[i]))) < double(MIN_D) and double(fabs(imag(v.values[i] - values[i]))) < double(MIN_D))
+			if (double(fabs(real(v.values.at(i) - values.at(i)))) < double(MIN_D) and double(fabs(imag(v.values.at(i) - values.at(i)))) < double(MIN_D))
 			{
 				return 0;
 			}
@@ -485,7 +502,7 @@ bool Vectors<complex<double>>:: operator == (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (float(fabs(real(v.values[i] - values[i]))) < float(MIN_D) and float(fabs(imag(v.values[i] - values[i]))) < float(MIN_D))
+			if (float(fabs(real(v.values.at(i) - values.at(i)))) < float(MIN_D) and float(fabs(imag(v.values.at(i) - values.at(i)))) < float(MIN_D))
 			{
 				return 1;
 			}
@@ -505,7 +522,7 @@ bool Vectors<complex<double>>:: operator != (const Vectors& v) const
 	{
 		for (int i = 0; i < size; i++)
 		{
-			if (double(fabs(real(v.values[i] - values[i]))) < double(MIN_D) and double(fabs(imag(v.values[i] - values[i]))) < double(MIN_D))
+			if (double(fabs(real(v.values.at(i) - values.at(i)))) < double(MIN_D) and double(fabs(imag(v.values.at(i) - values.at(i)))) < double(MIN_D))
 			{
 				return 0;
 			}
